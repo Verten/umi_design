@@ -1,0 +1,17 @@
+/////////////////////////////////////
+// Text fields - Read only
+/////////////////////////////////////
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea {
+  &:read-only,
+  &[readonly] {
+    background: transparent;
+    border-color: transparent;
+    padding-left: 0;
+
+    &:hover, &:active {
+      border-color: transparent;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+/////////////////////////////////////
+// Dropdown-menu
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+.menu {
+  position: absolute;
+  z-index: 60;
+  visibility: hidden;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  width: 100%;
+  margin: @space-small 0 0;
+  padding: @space-small 0;
+  background: @menu-background;
+  border: solid 1px @input-border;
+  text-align: left;
+  transition: all .25s ease-in-out;
+
+  &.right {
+    right: 0;
+    margin-right: 0;
+  }
+
+  .item:focus {
+    outline: none;
+  }
+
+  label {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+  }
+
+  hr {
+    margin: @space-small 0;
+    border-style: none;
+    border-top: 1px solid @menu-hr;
+    border-bottom: 0;
+  }
+
+  &.visible {
+    visibility: visible;
+  }
+
+  .item {
+    // Fix for visual align
+    padding: @space-base @space-base 7px;
+    color: @text;
+    line-height: 1.2em;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover,
+    &.highlight {
+      color: @text;
+      background: @table-hover;
+
+      a {
+        color: @text;
+        text-decoration: none;
+      }
+    }
+
+    &.selected {
+      border-bottom: solid 3px @blue;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .empty {
+    display: none;
+    opacity: .6;
+    text-align: center;
+
+    &.visible {
+      display: block;
+      padding: 4px 0;
+    }
+  }
+}

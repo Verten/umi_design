@@ -1,0 +1,136 @@
+/////////////////////////////////////
+// Checkboxes
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+input[type="checkbox"] {
+  position: absolute;
+  width: 10px;
+  margin: 5px -1px 0 0;
+  background: transparent;
+  border: transparent;
+  opacity: 0;
+
+  &:focus::before {
+    outline: solid 1px @blue;
+  }
+
+  &:checked {
+    &:not(:disabled) + label {
+      &::before {
+        .cbDefaults(1, 0);
+        margin-right: @space-base;
+      }
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+
+      &::before {
+        cursor: not-allowed;
+        .cbDefaults(1, 1);
+        margin-right: @space-base;
+      }
+    }
+
+    &:not(:disabled):hover + label {
+      &::before {
+        .cbDefaults(1, 2);
+        margin-right: @space-base;
+      }
+    }
+  }
+
+  &:indeterminate {
+    &:not(:disabled) + label::before {
+      .cbDefaults(2, 0);
+      margin-right: @space-base;
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+
+      &::before {
+        cursor: not-allowed;
+        .cbDefaults(2, 1);
+        margin-right: @space-base;
+      }
+    }
+
+    &:not(:disabled):hover + label {
+      &::before {
+        .cbDefaults(2, 2);
+        margin-right: @space-base;
+      }
+    }
+  }
+
+  &:not(:checked):not(:indeterminate) {
+    &:not(:disabled) + label {
+      &::before {
+        .cbDefaults(0, 0);
+        margin-right: @space-base;
+      }
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+
+      &::before {
+        cursor: not-allowed;
+        .cbDefaults(0, 1);
+        margin-right: @space-base;
+      }
+    }
+
+    &:not(:disabled):hover + label {
+      &::before {
+        .cbDefaults(0, 2);
+        margin-right: @space-base;
+      }
+    }
+  }
+}
+
+// MIXINGS
+.cbDefaults (@selected, @state) {
+  content: " ";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: sub;
+  background-size: 14px;
+  & when (@selected = 2) {
+    & when (@state = 2) {
+      background: @checkbox-indeterminate-hover no-repeat 100% center;
+    }
+    & when (@state = 1) {
+      background: @checkbox-indeterminate-disabled no-repeat 100% center;
+    }
+    & when (@state = 0) {
+      background: @checkbox-indeterminate no-repeat 100% center;
+    }
+  }
+  & when (@selected = 1) {
+    & when (@state = 2) {
+      background: @checkbox-selected-hover no-repeat 100% center;
+    }
+    & when (@state = 1) {
+      background: @checkbox-selected-disabled no-repeat 100% center;
+    }
+    & when (@state = 0) {
+      background: @checkbox-selected no-repeat 100% center;
+    }
+  }
+  & when (@selected = 0) {
+    & when (@state = 2) {
+      background: @checkbox-default-hover no-repeat 100% center;
+    }
+    & when (@state = 1) {
+      background: @checkbox-default-disabled no-repeat 100% center;
+    }
+    & when (@state = 0) {
+      background: @checkbox-default no-repeat 100% center;
+    }
+  }
+}

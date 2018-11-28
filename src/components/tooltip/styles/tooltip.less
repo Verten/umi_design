@@ -1,0 +1,187 @@
+/////////////////////////////////////
+// Tooltips
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+.tooltip {
+  position: relative;
+
+  &.dotted {
+    border-bottom: 1px dotted @text;
+  }
+
+  &.pointer {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &:hover {
+    cursor: default;
+
+    .message {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .18s ease-in-out .18s;
+    }
+  }
+
+  .message {
+    opacity: 0;
+    visibility: hidden;
+    background: @tooltip-background;
+    color: @tooltip-text;
+    font-size: 12px;
+    padding: .7rem;
+    line-height: 16px;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+
+    &:hover {
+      opacity: 0;
+    }
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.white {
+      background-color: #eee;
+      color: #242424;
+      &.bottom::after { border-color: transparent transparent #eee; }
+      &.bottom-end::after { border-color: transparent transparent #eee; }
+      &.top::after { border-color: #eee transparent transparent; }
+      &.top-end::after { border-color: #eee transparent transparent; }
+      &.left::after { border-color: transparent transparent transparent #eee; }
+      &.right::after { border-color: transparent #eee transparent transparent; }
+    }
+
+    &.blue {
+      background-color: @blue;
+      color: @white;
+      &.bottom::after { border-color: transparent transparent @blue transparent; }
+      &.bottom-end::after { border-color: transparent transparent @blue transparent; }
+      &.top::after { border-color: @blue transparent transparent transparent; }
+      &.top-end::after { border-color: @blue transparent transparent transparent; }
+      &.left::after { border-color: transparent transparent transparent @blue; }
+      &.right::after { border-color: transparent @blue transparent transparent; }
+    }
+
+    &.black {
+      background-color: #333;
+      color: #f2f2f2;
+      &.bottom::after { border-color: transparent transparent #333; }
+      &.bottom-end::after { border-color: transparent transparent #333; }
+      &.top::after { border-color: #333 transparent transparent; }
+      &.top-end::after { border-color: #333 transparent transparent; }
+      &.left::after { border-color: transparent transparent transparent #333; }
+      &.right::after { border-color: transparent #333 transparent transparent; }
+    }
+
+    &.bottom {
+      // default
+      margin-top: @space-base;
+      left: 0;
+
+      // arrow right
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 14px;
+        margin-top: -10px;
+        border: 5px solid transparent;
+        border-bottom-color: @tooltip-background;
+      }
+    }
+
+    &.bottom-end {
+      // default
+      margin-top: @space-base;
+      right: -10px;
+      top: 100%;
+
+      // arrow right
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: 14px;
+        margin-top: -10px;
+        border: 5px solid transparent;
+        border-bottom-color: @tooltip-background;
+      }
+    }
+
+    &.top {
+      bottom: 100%;
+      left: 0;
+      margin-bottom: @space-base;
+
+      // arrow bottom
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-left: 14px;
+        border: 5px solid transparent;
+        border-top-color: @tooltip-background;
+      }
+    }
+
+    &.top-end {
+      bottom: 100%;
+      right: -10px;
+      margin-bottom: @space-base;
+
+      // arrow bottom
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-right: 14px;
+        border: 5px solid transparent;
+        border-top-color: @tooltip-background;
+      }
+    }
+
+    &.right {
+      top: 0;
+      left: 105%;
+      margin-left: @space-base;
+
+      // arrow left
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: 100%;
+        margin-top: 1em;
+        border: 5px solid transparent;
+        border-right-color: @tooltip-background;
+      }
+    }
+
+    &.left {
+      top: 0;
+      right: 105%;
+      margin-right: @space-base;
+
+      // arrow right
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-top: 1em;
+        border: 5px solid transparent;
+        border-left-color: @tooltip-background;
+      }
+    }
+  }
+}

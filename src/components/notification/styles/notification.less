@@ -1,0 +1,168 @@
+/////////////////////////////////////
+// Notifications
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+@import (reference, multiple) "../font/icon-names";
+
+.notification {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  padding: @space-large;
+  width: 100%;
+  color: @text;
+  background-color: @notification-background;
+  border: 1px solid @notification-border;
+  box-shadow: 0 2px 16px 0 @notification-shadow-color;
+  transition: opacity 250ms ease-out; // on show
+
+  &:hover {
+    border-color: @notification-hover;
+    cursor: pointer;
+
+    .title {
+      &::after {
+        color: @text;
+      }
+    }
+  }
+
+  .top-row {
+    display: flex;
+    flex-direction: row;
+
+    .status {
+      display: inline-block;
+
+      &::before {
+        font-family: "Ericsson Icons" !important;
+        margin-right: @space-large;
+        vertical-align: middle;
+        font-size: 16px;
+      }
+    }
+
+    .title {
+      flex: 1;
+      width: 90%;
+
+      &::after {
+        content: @icon-cross;
+        font-family: "Ericsson Icons" !important;
+        font-size: 16px;
+        color: fade(@text, 50%);
+        position: absolute;
+        right: @space-large;
+        top: 16px;
+      }
+    }
+  }
+
+  .description {
+    margin-top: @space-large;
+    color: @notification-description;
+    display: flex;
+    opacity: .8;
+    font-weight: 300;
+
+    .actions {
+      .btn {
+        margin-bottom: 6px;
+        width: 100%;
+        min-width: 80px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .timeout {
+    margin-top: @space-large;
+    display: flex;
+    opacity: .8;
+    font-weight: 300;
+    order: 100;
+  }
+
+  &.toast {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  &.error {
+    color: @white;
+    background-color: @red;
+    border-color: @red;
+
+    &:hover {
+      border-color: @red;
+
+      .title::after {
+        color: @white;
+      }
+    }
+
+    .status::before {
+      content: @icon-triangle;
+    }
+
+    .title {
+      flex: 0 0 auto;
+      width: 81%;
+
+      &::after {
+        color: fade(@white, 50%);
+      }
+    }
+  }
+
+  &.success {
+    color: @white;
+    background-color: @blue;
+    border-color: @blue;
+
+    &:hover {
+      border-color: @blue;
+
+      .title::after {
+        color: @white;
+      }
+    }
+
+    .status::before {
+      content: @icon-check;
+    }
+
+    .title {
+      flex: 0 0 auto;
+      width: 81%;
+
+      &::after {
+        color: fade(@white, 50%);
+      }
+    }
+  }
+
+  .icon {
+    // Makes the icons smaller without breaking alignment
+    transform: scale(.9);
+  }
+}
+
+@media @tablet {
+  .notification {
+    position: relative;
+    top: 64px;
+    right: 16px !important;
+    width: 380px;
+
+    &.toast {
+      bottom: auto;
+    }
+  }
+}

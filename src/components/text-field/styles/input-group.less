@@ -1,0 +1,30 @@
+/////////////////////////////////////
+// Text fields - Group
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+.input-group {
+  display: flex;
+  margin-top: @space-base;
+  margin-bottom: @space-xl;
+
+  > * {
+    align-self: center;
+  }
+
+  label {
+    margin-right: @space-base;
+  }
+
+  input {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  button {
+    margin-left: -@space-base;
+    background: @input-border;
+    border-radius: 0 3px 3px 0;
+    border-color: @input-border;
+  }
+}

@@ -1,0 +1,120 @@
+/////////////////////////////////////
+// Dropdowns
+/////////////////////////////////////
+@import (reference, multiple) "../font/icon-names";
+
+.dropdown {
+  position: relative;
+  width: fit-content;
+  // display: inline-block;
+
+  &.more {
+    .btn {
+      border: none;
+      padding: 0;
+      margin-bottom: 0 !important;
+      min-width: 16px;
+      vertical-align: baseline;
+      outline: 0;
+
+      &::after {
+        content: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      &:hover {
+        background: none;
+        color: @text;
+
+        .icon {
+          color: @text;
+        }
+      }
+
+      .icon {
+        padding: 0;
+        margin: 0;
+        color: fade(@text, 70%);
+        font-size: 16px;
+      }
+    }
+
+    .menu {
+      right: 0;
+      font-size: 14px;
+
+      &.start {
+        right: unset;
+        left: 0;
+      }
+    }
+  }
+
+  .btn {
+    &::after {
+      content: @icon-chevron-down;
+      padding-left: 8px;
+      font-family: "Ericsson Icons" !important;
+      vertical-align: middle;
+      line-height: 15px;
+    }
+
+    &:not(:disabled) {
+      &:not(.clickable) {
+        &:hover + .menu {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  &[data-type="multi"] {
+    .item {
+      input[type="checkbox"] {
+        position: fixed;
+      }
+    }
+  }
+
+  &[data-type="combo"] {
+    width: inherit;
+
+    .combo:not([disabled="true"]) {
+      &:active + .btn,
+      &:focus + .btn {
+        border-color: @link-blue;
+      }
+    }
+
+    .btn {
+      min-width: 32px;
+      height: 28px;
+      margin-left: -3px;
+      padding: 0;
+      border: 1px solid @input-border;
+      background: @input-border;
+      border-radius: 0 3px 3px 0;
+
+      &.gradient {
+        border-left-color: tint(@input-border, 10%);
+      }
+
+      &::after {
+        padding-left: 0;
+      }
+
+      &:hover {
+        color: @btn-default-text;
+        text-decoration: none;
+        background: @btn-default;
+        border: 1px solid @btn-default;
+        cursor: pointer;
+      }
+    }
+
+    .menu {
+      width: 160px;
+    }
+  }
+}

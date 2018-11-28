@@ -1,0 +1,91 @@
+/////////////////////////////////////
+// Radiobuttons
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+input[type="radio"] {
+  display: none;
+
+  &:checked {
+    &:not(:disabled) + label {
+      &::before {
+        .rbDefaults(1, 0);
+        margin-right: @space-base;
+      }
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+
+      &::before {
+        cursor: not-allowed;
+        .rbDefaults(1, 1);
+        margin-right: @space-base;
+      }
+    }
+
+    &:not(:disabled):hover + label {
+      &::before {
+        .rbDefaults(1, 2);
+        margin-right: @space-base;
+      }
+    }
+  }
+
+  &:not(:checked) {
+    &:not(:disabled) + label {
+      &::before {
+        .rbDefaults(0, 0);
+        margin-right: @space-base;
+      }
+    }
+
+    &:disabled + label {
+      cursor: not-allowed;
+
+      &::before {
+        cursor: not-allowed;
+        .rbDefaults(0, 1);
+        margin-right: @space-base;
+      }
+    }
+
+    &:not(:disabled):hover + label {
+      &::before {
+        .rbDefaults(0, 2);
+        margin-right: @space-base;
+      }
+    }
+  }
+}
+
+// Mixings
+.rbDefaults (@selected, @state) {
+  content: " ";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
+  & when (@selected = 1) {
+    & when (@state = 2) {
+      background: @radio-button-selected-hover no-repeat 100% center;
+    }
+    & when (@state = 1) {
+      background: @radio-button-selected-disabled no-repeat 100% center;
+    }
+    & when (@state = 0) {
+      background: @radio-button-selected no-repeat 100% center;
+    }
+  }
+  & when (@selected = 0) {
+    & when (@state = 2) {
+      background: @radio-button-default-hover no-repeat 100% center;
+    }
+    & when (@state = 1) {
+      background: @radio-button-default-disabled no-repeat 100% center;
+    }
+    & when (@state = 0) {
+      background: @radio-button-default no-repeat 100% center;
+    }
+  }
+}

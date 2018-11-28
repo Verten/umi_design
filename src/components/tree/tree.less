@@ -1,0 +1,115 @@
+/////////////////////////////////////
+// Tree
+/////////////////////////////////////
+@import (reference, multiple) "../font/icon-names";
+@import (reference, multiple) "../variables/global";
+
+.tree {
+  overflow-x: hidden;
+
+  ::before {
+    font-size: 14px;
+    font-family: "Ericsson Icons";
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 32px;
+    color: @paragraph;
+
+    ul {
+      margin-left: -20px;
+    }
+  }
+
+  li {
+    padding-bottom: 0;
+    user-select: none;
+
+    i.icon {
+      vertical-align: top !important;
+    }
+
+    > :not(ul)::before {
+      display: inline-block;
+      margin-left: -32px;
+      width: 32px;
+      content: "";
+    }
+  }
+
+  .opened::before {
+    content: @icon-chevron-down;
+  }
+
+  .title:not(.opened) {
+    &::before {
+      content: @icon-chevron-right;
+    }
+
+    ~ ul {
+      height: 0;
+      opacity: 0;
+      visibility: collapse;
+      padding-bottom: 0;
+      display: none;
+    }
+  }
+
+  .right-align {
+    float: right;
+
+    &::before {
+      margin-right: 8px;
+    }
+  }
+
+  .active.opened {
+    font-weight: @weight-bold;
+  }
+
+  .active:not(.opened),
+  .active:not(.title) {
+    background: @blue;
+    color: @white;
+  }
+
+  .item, .title {
+    display: block;
+    cursor: pointer;
+    padding: 6px 0 6px 100%;
+    margin-left: -100%;
+
+    &:not(.active):hover {
+      background: @tree-hover;
+    }
+  }
+
+  a {
+    color: @text;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .icon::before {
+    margin-right: 8px;
+  }
+
+  label {
+    line-height: normal;
+    display: inline-block;
+  }
+}
+
+.navigation {
+  height: calc(~"100%" - 44px);
+  overflow-y: auto;
+
+  .item, .title {
+    padding: 12px 8px 12px 100%;
+  }
+}

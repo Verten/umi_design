@@ -1,0 +1,69 @@
+/////////////////////////////////////
+// Text fields - Default
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+input,
+textarea {
+  color: @text;
+  display: inline-block;
+  width: 160px;
+  font-size: 12px;
+  font-family: @font-main;
+  font-weight: 300;
+  background: @input-background;
+  border: 1px solid @input-border;
+  padding: 6px;
+  margin-right: @space-base;
+  -webkit-appearance: none;
+  outline: 0;
+
+  &::placeholder {
+    color: @input-placeholder;
+  }
+
+  &:hover:not(:disabled):not([disabled]):not(:read-only):not([readonly]) {
+    border-color: @input-border-hover;
+  }
+
+  &:focus:not(:disabled):not([disabled]):not(:read-only):not([readonly]) {
+    outline: 0;
+    border-color: @blue;
+  }
+
+  &:active {
+    outline: 0;
+    border-color: @blue;
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: @input-background-disabled;
+    color: @input-text-disabled;
+  }
+
+  &:read-only,
+  &[readonly] {
+    background: transparent;
+    border-color: transparent;
+    padding-left: 0;
+
+    &:hover, &:active {
+      border-color: transparent;
+    }
+  }
+
+  &.with-icon {
+    padding-right: 25px;
+  }
+}
+
+&.enable-focus {
+  input:not([type="checkbox"]):not([type="radio"]), textarea {
+    &:focus {
+      outline: @focus-outline-color solid 2px;
+      outline-offset: 1px;
+    }
+  }
+}

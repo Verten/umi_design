@@ -1,0 +1,121 @@
+/////////////////////////////////////
+// Switch
+/////////////////////////////////////
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  border-radius: 34px;
+  cursor: pointer;
+  color: fade(@text, 80%);
+
+  &:hover {
+    color: @text;
+    cursor: pointer;
+
+    input:not([disabled]) + .ball {
+      border-color: @switch-border-hover;
+    }
+
+    input:checked:not([disabled]) + .ball {
+      background-color: @switch-background-hover-selected;
+      border-color: @switch-background-hover-selected;
+    }
+  }
+
+  span {
+    display: block;
+    margin-left: 38px;
+
+    &::after {
+      content: attr(data-disabled);
+    }
+  }
+
+  input {
+    display: none;
+
+    // selected
+    // - ball holder
+    &:checked + .ball {
+      background-color: @switch-background-selected;
+      border-color: @switch-border-selected;
+    }
+
+    // - label
+    &:checked ~ span::after {
+      content: attr(data-enabled);
+    }
+
+    // - ball
+    &:checked + .ball::before {
+      -webkit-transform: translateX(13px);
+      -ms-transform: translateX(13px);
+      transform: translateX(13px);
+      background-color: @switch-ball-selected;
+    }
+
+    &:not([disabled]) ~ span {
+      cursor: pointer;
+    }
+
+    &:disabled ~ span {
+      cursor: not-allowed;
+      opacity: .4;
+    }
+
+    &:checked:disabled ~ .ball {
+      border-color: @switch-background-disabled;
+    }
+
+    &:disabled ~ .ball {
+      background-color: @switch-background-disabled;
+      border-color: @switch-border-disabled;
+
+      &::before {
+        background-color: @switch-ball-disabled;
+      }
+
+      &:hover {
+        cursor: not-allowed;
+        background: @switch-background-disabled;
+      }
+    }
+  }
+
+  // ball-holder
+  .ball {
+    position: absolute;
+    left: 0;
+    right: -1px;
+    height: 17px;
+    background-color: @switch-background;
+    border: solid 1px @switch-border;
+    border-radius: 34px;
+    transition: background-color .4s, transform .4s;
+
+    // ball
+    &::before {
+      position: absolute;
+      content: "";
+      height: 11px;
+      width: 11px;
+      left: 3px;
+      bottom: 2px;
+      background-color: @switch-ball;
+      border-radius: 50%;
+      transition: background-color .4s, transform .4s;
+    }
+  }
+}
+
+.enable-focus {
+  .switch input {
+    &:focus + .ball {
+      box-shadow: 0 0 2px 2px @blue;
+      outline: @focus-outline-color solid 2px;
+      outline-offset: 1px;
+    }
+  }
+}

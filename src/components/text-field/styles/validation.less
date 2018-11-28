@@ -1,0 +1,26 @@
+/////////////////////////////////////
+// Text fields - Validaion
+/////////////////////////////////////
+@import (reference, multiple) "../variables/global";
+
+input {
+  &.validation {
+    & + .validation-error {
+      display: none;
+    }
+
+    &:invalid {
+      border: 1px solid @input-border-red;
+      margin-bottom: @space-small;
+
+      + .validation-error {
+        display: block;
+        height: 16px;
+        line-height: 16px;
+        margin-bottom: @space-small;
+        font-size: 12px;
+        color: fade(@text, 60%);
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+/////////////////////////////////////
+// Text fields - Suffix
+/////////////////////////////////////
+
+input {
+  & + .suffix {
+    display: inline;
+    border: solid 1px @input-border;
+    border-left: none;
+    padding: 6px;
+    margin-left: -11px;
+    font-size: 12px;
+
+    &.icon-inside {
+      margin-left: -38px;
+      border: none;
+      padding: 6px;
+      color: @input-placeholder;
+    }
+  }
+}
