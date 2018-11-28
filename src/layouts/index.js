@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router'
 import styles from './index.css'
 
 function BasicLayout(props) {
@@ -11,7 +13,7 @@ function BasicLayout(props) {
 }
 
 BasicLayout.propTypes = {
-  children: React.element,
+  children: PropTypes.element,
 }
 
-export default BasicLayout
+export default withRouter(BasicLayout)
