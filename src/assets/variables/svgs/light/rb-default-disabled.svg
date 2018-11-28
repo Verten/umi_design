@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>form/light/radiobutton_disabled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="8" cy="8" r="6"></circle>
+    </defs>
+    <g id="Ericsson-Design-System-v1.2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Light-theme" transform="translate(-1094.000000, -1255.000000)">
+            <g id="Radio-buttons" transform="translate(777.000000, 1132.000000)">
+                <g id="Disabled" transform="translate(0.000000, 121.000000)">
+                    <g id="Group-13" transform="translate(315.000000, 0.000000)">
+                        <g id="form/light/radiobutton_disabled">
+                            <g id="Oval">
+                                <use fill="#EBEBEB" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <circle stroke="#C8C8C8" stroke-width="1" cx="8" cy="8" r="5.5"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>completed copy 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="32" cy="32" r="32"></circle>
+    </defs>
+    <g id="Light" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-702.000000, -27.000000)">
+        <g id="completed-copy-4" transform="translate(702.000000, 27.000000)">
+            <g id="a-link">
+                <g id="a-Clipped">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="a"></g>
+                    <circle id="a" stroke="#0082F0" stroke-width="12" fill="#F2F2F2" fill-rule="nonzero" mask="url(#mask-2)" cx="32" cy="32" r="32"></circle>
+                </g>
+            </g>
+            <circle id="Oval" fill="#F2F2F2" fill-rule="nonzero" cx="32" cy="32" r="20"></circle>
+            <polygon id="Shape-Copy" fill="#0082F0" fill-rule="nonzero" points="27.5957447 45.5531915 15 32.6170213 19.7659574 27.8510638 27.2553191 35.3404255 41.893617 19 47 23.7659574"></polygon>
+        </g>
+    </g>
+</svg>

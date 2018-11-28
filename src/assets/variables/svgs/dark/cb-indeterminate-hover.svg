@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>form/dark/checkbox_indeterminate_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Ericsson-Design-System-v1.1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dark-theme" transform="translate(-1093.000000, -1936.000000)">
+            <g id="Checkboxes" transform="translate(777.000000, 1527.000000)">
+                <g id="Indeterminate-hover" transform="translate(0.000000, 408.000000)">
+                    <g id="Group-32" transform="translate(315.000000, 0.000000)">
+                        <g id="form/dark/checkbox_indeterminate_hover">
+                            <rect id="Rectangle" fill="#2696F2" x="1" y="1" width="14" height="14"></rect>
+                            <polygon id="Rectangle" fill="#F2F2F2" points="4 9 12 9 12 7 4 7"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

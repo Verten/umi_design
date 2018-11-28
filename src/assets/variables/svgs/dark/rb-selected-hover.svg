@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>form/dark/radiobutton_selected_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="8" cy="8" r="6"></circle>
+    </defs>
+    <g id="Ericsson-Design-System-v1.2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dark-theme" transform="translate(-1094.000000, -1454.000000)">
+            <g id="Radio-buttons" transform="translate(777.000000, 1167.000000)">
+                <g id="Selected-hover" transform="translate(0.000000, 285.000000)">
+                    <g id="Group-23" transform="translate(315.000000, 0.000000)">
+                        <g id="form/dark/radiobutton_selected_hover">
+                            <g id="Oval">
+                                <use fill="#212121" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <circle stroke="#767676" stroke-width="1" cx="8" cy="8" r="5.5"></circle>
+                            </g>
+                            <circle id="Oval" fill="#2696F2" fill-rule="evenodd" cx="8" cy="8" r="3"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

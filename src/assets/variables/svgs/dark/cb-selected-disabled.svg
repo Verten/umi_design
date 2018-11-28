@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>form/dark/checkbox_selected_disabled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Ericsson-Design-System-v1.1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dark-theme" transform="translate(-1093.000000, -1772.000000)">
+            <g id="Checkboxes" transform="translate(777.000000, 1527.000000)">
+                <g id="Selected-disabled" transform="translate(0.000000, 244.000000)">
+                    <g id="Group-19" transform="translate(315.000000, 0.000000)">
+                        <g id="form/dark/checkbox_selected_disabled">
+                            <rect id="Rectangle" fill="#2D2D2D" x="1" y="1" width="14" height="14"></rect>
+                            <polygon id="Path" fill="#767676" points="11.2 3.99999 6.89999995 8.80099 4.69999995 6.59999 3.29999995 7.99999 6.99999995 11.79999 12.699 5.40099"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

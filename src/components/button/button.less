@@ -1,0 +1,107 @@
+/////////////////////////////////////
+// Buttons
+/////////////////////////////////////
+@import (reference, multiple) '../../assets/variables/global';
+
+.btn {
+  min-width: 60px;
+  padding: 0.5em 1em;
+  border-radius: @btn-radius;
+  outline: 0;
+  font-size: 12px;
+  font-family: @font-main;
+  color: @btn-default;
+  background-color: transparent;
+  border: 1px solid @btn-default;
+
+  &.big {
+    font-size: 1em;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    color: @btn-default-text;
+    text-decoration: none;
+    background-color: @btn-default;
+    border: 1px solid @btn-default;
+    cursor: pointer;
+  }
+
+  &:active:not(:disabled) {
+    color: @btn-default-text;
+    background-color: @btn-default-active;
+    border: 1px solid @btn-default-active;
+    transition: none;
+  }
+
+  &.auto {
+    min-width: 0;
+  }
+
+  & i {
+    margin-right: @space-base;
+    vertical-align: middle;
+  }
+
+  &.primary {
+    color: @btn-primary-text;
+    background-color: @blue;
+    border: 1px solid @blue;
+
+    &:hover:not(:disabled) {
+      color: @btn-primary-text;
+      background-color: lighten(@blue, 15%);
+      border: 1px solid lighten(@blue, 15%);
+    }
+
+    &:active:not(:disabled) {
+      color: @btn-primary-text;
+      background-color: darken(@blue, 15%);
+      border: 1px solid darken(@blue, 15%);
+      transition: none;
+    }
+  }
+
+  &.warning {
+    color: @btn-primary-text;
+    background-color: @red;
+    border: 1px solid @red;
+
+    &:hover:not(:disabled) {
+      color: @btn-primary-text;
+      background-color: lighten(@red, 15%);
+      border: 1px solid lighten(@red, 15%);
+    }
+
+    &:active:not(:disabled) {
+      color: @btn-primary-text;
+      background-color: darken(@red, 15%);
+      border: 1px solid darken(@red, 15%);
+      transition: none;
+    }
+  }
+
+  & ~ .btn {
+    margin-left: @space-base;
+  }
+}
+
+// File input
+label input[type='file'] {
+  display: none;
+}
+
+&.enable-focus {
+  .btn:focus {
+    outline: @focus-outline-color solid 2px;
+    outline-offset: 1px;
+  }
+}

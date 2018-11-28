@@ -6,7 +6,7 @@
     "test": "umi test",
     "lint": "eslint --ext .js src mock tests",
     "precommit": "lint-staged",
-    "storybook": "start-storybook -p 9001 -c ./.storybook"
+    "storybook": "start-storybook -p 9001 -c ./.storybook -s ./src/assets"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^4.0.9",
@@ -31,5 +31,6 @@
   },
   "engines": {
     "node": ">=8.0.0"
-  }
+  },
+  "dependencies": {}
 }

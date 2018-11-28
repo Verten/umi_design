@@ -1,0 +1,72 @@
+/////////////////////////////////////
+// Accordion
+/////////////////////////////////////
+@import (reference, multiple) '../../assets/font/icon-names';
+@import (reference, multiple) '../../assets/variables/global';
+
+.accordion {
+  ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  li {
+    padding-bottom: 0;
+    color: fade(@text, 80%);
+
+    .title::before {
+      content: @icon-chevron-down;
+    }
+
+    .content {
+      padding: 0 24px 16px;
+    }
+
+    &:nth-child(n + 1) {
+      margin: -1px 0 0;
+    }
+
+    ol li,
+    ul li {
+      padding: @space-small 0;
+    }
+  }
+
+  .title {
+    padding: 12px 8px;
+    font-weight: @weight-bold;
+    cursor: pointer;
+
+    &:hover {
+      background: @table-hover;
+    }
+
+    &::before {
+      padding: 0 8px;
+      font-family: 'Ericsson Icons';
+      font-size: 16px;
+      vertical-align: middle;
+      float: right;
+    }
+  }
+
+  li:not(.opened) {
+    color: @text;
+
+    .content {
+      display: none;
+    }
+
+    .title::before {
+      content: @icon-chevron-up;
+    }
+  }
+
+  &.lines {
+    li {
+      border-top: 1px solid @gray;
+      border-bottom: 1px solid @gray;
+    }
+  }
+}

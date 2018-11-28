@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>current copy 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="32" cy="32" r="32"></circle>
+        <circle id="path-3" cx="19" cy="19" r="19"></circle>
+    </defs>
+    <g id="Dark" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-842.000000, -43.000000)">
+        <g id="current-copy-3" transform="translate(842.000000, 43.000000)">
+            <g id="a-link">
+                <g id="a-Clipped">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="a"></g>
+                    <circle id="a" stroke="#F2F2F2" stroke-width="12" fill="#242424" fill-rule="nonzero" mask="url(#mask-2)" cx="32" cy="32" r="32"></circle>
+                </g>
+            </g>
+            <g id="a-link" transform="translate(13.000000, 13.000000)">
+                <g id="a-Clipped">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="a"></g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
