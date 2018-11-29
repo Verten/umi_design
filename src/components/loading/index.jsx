@@ -1,9 +1,7 @@
 import React from 'react'
 import { isEqual } from 'lodash'
 import PropTypes from 'prop-types'
-import styles from './loading.less'
-import './loading-dark.less'
-import './loading-light.less'
+import styles from './styles.less'
 
 const Loading = props => {
   const { type = 'div', size = 'medium' } = props
@@ -13,7 +11,7 @@ const Loading = props => {
   } else {
     element = <button className={`${styles.btn} ${styles.loading} ${styles[size]}`} />
   }
-  return element
+  return <div className={styles.light}>{element}</div>
 }
 
 Loading.propTypes = {
