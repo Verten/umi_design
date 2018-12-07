@@ -32,5 +32,9 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "js-cookie": "^2.2.0",
+    "qs": "^6.6.0",
+    "url-join": "^4.0.0"
+  }
 }
