@@ -48,8 +48,8 @@ Authentication.prototype.buildAuthorizeUrl = function(options) {
 }
 
 Authentication.prototype.buildLogoutUrl = function(options) {
-  var params
-  var qString
+  let params
+  let qString
 
   assert.check(
     options,
@@ -71,6 +71,10 @@ Authentication.prototype.buildLogoutUrl = function(options) {
   qString = qs.stringify(params)
 
   return urljoin(this.baseOptions.rootUrl, 'logout', '?' + qString)
+}
+
+Authentication.prototype.buildSessionManagementUrl = function(options) {
+  return urljoin(this.baseOptions.rootUrl, 'portal/session_management')
 }
 
 export default Authentication

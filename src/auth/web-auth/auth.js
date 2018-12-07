@@ -131,6 +131,8 @@ WebAuth.prototype.initAuthorizationResponse = function(message) {
   }
 }
 
+WebAuth.prototype.sessionManagement = function(cb) {}
+
 WebAuth.prototype.random = random
 
 function buildParseHashResponse(qsParams) {
