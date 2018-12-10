@@ -1,0 +1,71 @@
+@import (multiple) '../../../assets/font/icons.less';
+@import (multiple) '../../../assets/font/icon-font.less';
+
+.sysbar {
+  display: flex;
+  background-color: #0c0c0c;
+  justify-content: space-between;
+  color: #fafafa;
+  height: 48px;
+  font-weight: 100;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-left: 16px;
+  padding-right: 16px;
+  .product {
+    margin-left: 4px;
+    display: none;
+    font-weight: 500;
+  }
+  .acronym {
+    font-weight: 500;
+  }
+  .items-container {
+    cursor: pointer;
+    align-self: center;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    .item {
+      margin-right: 16px;
+      &:focus {
+        outline: 0;
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
+      a {
+        color: #fafafa;
+      }
+    }
+    .icon {
+      position: relative;
+      font-size: 16px;
+      margin-right: 5px;
+      top: -1px;
+      &.icon-econ {
+        font-size: 21px;
+      }
+    }
+    &:focus {
+      outline: 0;
+    }
+    .hover {
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .username {
+    display: none;
+  }
+  .pill {
+    background-color: #0082f0;
+    color: #fafafa;
+    border-radius: 8px;
+    height: 20px;
+  }
+}
