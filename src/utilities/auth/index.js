@@ -37,6 +37,7 @@ export default class Auth {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    localStorage.setItem('session_state', authResult.sessionState)
     // navigate to the home route
     router.replace('/home')
   }
@@ -45,6 +46,17 @@ export default class Auth {
     this.auth.checkSession(options, (error, result) => {
       cb(error, result)
     })
+  }
+
+  connectWithSessionManagement(cb) {
+    const intervalTime = 30 * 1000
+    if (localStorage.getItem('session_state') !== null && localStorage.getItem('session_state') !== '') {
+      setInterval(() => {
+        this.auth.sessionManagement({ intervalTime }, (error, result) => {
+          cb(error, result)
+        })
+      }, intervalTime)
+    }
   }
 
   isAuthenticated() {
@@ -59,6 +71,7 @@ export default class Auth {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
+    localStorage.removeItem('session_state')
     this.auth.logout(options)
     // navigate to the root route
     router.replace('/')

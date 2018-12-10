@@ -2,6 +2,8 @@ import windowHelper from './window'
 
 function IframeHandler(options) {
   this.url = options.url
+  this.message = options.message
+  this.webMessageType = options.webMessageType
   this.callback = options.callback
   this.timeout = options.timeout || 30 * 1000
   this.timeoutCallback = options.timeoutCallback || null
@@ -52,9 +54,26 @@ IframeHandler.prototype.init = function() {
 
   this.iframe.src = this.url
 
+  if (this.webMessageType === 'session_management') {
+    this.iframe.onload = _this.postMessage(this.message)
+  }
+
   this.timeoutHandle = setTimeout(function() {
     _this.timeoutHandler()
   }, this.timeout)
+}
+
+IframeHandler.prototype.postMessage = function(messageObj) {
+  return () => {
+    const { message, targetUrl } = messageObj
+    if (message) {
+      // setTimeout(() => {
+      this.iframe.contentWindow.postMessage(message, targetUrl)
+      // }, 3000)
+    } else {
+      console.info('No message should post.')
+    }
+  }
 }
 
 IframeHandler.prototype.eventListener = function(event) {

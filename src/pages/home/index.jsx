@@ -7,7 +7,9 @@ export class Home extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isAuthenticated: props.auth.isAuthenticated(),
+    }
   }
 
   handleLogout = () => {
@@ -22,6 +24,17 @@ export class Home extends Component {
       console.info(`fetchUserInfo with error:`, error)
     } else {
       console.info(`fetchUserInfo with result:`, result)
+      this.setState({
+        isAuthenticated: true,
+      })
+    }
+  }
+
+  sessionManagement = (error, result) => {
+    if (error) {
+      console.info(`sessionManagement with error:`, error)
+    } else {
+      console.info(`sessionManagement with result:`, result)
     }
   }
 
@@ -34,13 +47,14 @@ export class Home extends Component {
       }),
     )
     auth.checkSession({ state: encodeState }, this.fetchUserInfo)
+    auth.connectWithSessionManagement(this.sessionManagement)
   }
 
   render() {
     return (
       <Fragment>
         <div>Home Page</div>
-        {this.props.auth.isAuthenticated() ? (
+        {this.state.isAuthenticated ? (
           <Button icon="icon-avatar" onClick={this.handleLogout}>
             Log Out
           </Button>

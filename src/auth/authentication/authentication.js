@@ -74,7 +74,7 @@ Authentication.prototype.buildLogoutUrl = function(options) {
 }
 
 Authentication.prototype.buildSessionManagementUrl = function(options) {
-  return urljoin(this.baseOptions.rootUrl, 'portal/session_management')
+  return urljoin(this.baseOptions.rootUrl, 'session_management')
 }
 
 export default Authentication

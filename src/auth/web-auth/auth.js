@@ -50,6 +50,14 @@ WebAuth.prototype.checkSession = function(options, cb) {
     .merge(this.baseOptions, ['clientID', 'responseType', 'redirectUri', 'scope', 'state', 'nonce'])
     .with(options)
 
+  assert.check(
+    params,
+    { type: 'object', message: 'options parameter is not valid' },
+    {
+      state: { type: 'string', message: 'state option is required' },
+    },
+  )
+
   if (!options.nonce) {
     params = this.transactionManager.process(params)
   }
@@ -62,6 +70,25 @@ WebAuth.prototype.checkSession = function(options, cb) {
   assert.check(cb, { type: 'function', message: 'cb parameter is not valid' })
 
   params = objectHelper.blacklist(params, ['usePostMessage', 'tenant', 'postMessageDataType'])
+  this.webMessageHandler.run(params, cb)
+}
+
+WebAuth.prototype.sessionManagement = function(options, cb) {
+  let params = objectHelper.merge(this.baseOptions, ['clientID']).with(options)
+
+  params.webMessageType = 'session_management'
+
+  assert.check(
+    params,
+    { type: 'object', message: 'options parameter is not valid' },
+    {
+      intervalTime: { type: 'number', message: 'intervalTime option is required' },
+    },
+  )
+  assert.check(cb, { type: 'function', message: 'cb parameter is not valid' })
+
+  params.timeout = params.intervalTime || 30 * 1000
+
   this.webMessageHandler.run(params, cb)
 }
 
@@ -131,8 +158,6 @@ WebAuth.prototype.initAuthorizationResponse = function(message) {
   }
 }
 
-WebAuth.prototype.sessionManagement = function(cb) {}
-
 WebAuth.prototype.random = random
 
 function buildParseHashResponse(qsParams) {
@@ -143,6 +168,7 @@ function buildParseHashResponse(qsParams) {
     expiresIn: qsParams.expires_in ? parseInt(qsParams.expires_in, 10) : null,
     tokenType: qsParams.token_type || null,
     scope: qsParams.scope || null,
+    sessionState: qsParams.session_state || null,
   }
 }
 

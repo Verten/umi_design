@@ -3,9 +3,14 @@ import objectHelper from '../helper/object'
 import windowHelper from '../helper/window'
 import Warn from '../helper/warn'
 
-function runWebMessageFlow(authorizeUrl, options, callback, validatorCallback) {
+function runWebMessageFlow(targetUrl, options, callback, validatorCallback, message) {
   const handler = new IframeHandler({
-    url: authorizeUrl,
+    url: targetUrl,
+    message: {
+      targetUrl,
+      message,
+    },
+    webMessageType: options.webMessageType,
     eventListenerType: 'message',
     callback: function(eventData) {
       callback(null, eventData)
@@ -41,7 +46,7 @@ WebMessageHandler.prototype.run = function(options, cb) {
 
   let currentOrigin = windowHelper.getOrigin()
   let redirectUriOrigin = objectHelper.getOriginFromUrl(options.redirectUri)
-  if (redirectUriOrigin && currentOrigin !== redirectUriOrigin) {
+  if (redirectUriOrigin && currentOrigin !== redirectUriOrigin && webMessageType === 'authorize') {
     return cb({
       error: 'origin_mismatch',
       error_description:
@@ -61,12 +66,15 @@ WebMessageHandler.prototype.run = function(options, cb) {
       checkAuthorizeValidator,
     )
   } else if (webMessageType === 'session_management') {
-    runWebMessageFlow(
-      this.webAuth.client.buildSessionManagementUrl(options),
-      options,
-      checkSessionManagementCallback(options, _this, cb),
-      checkSessionManagementValidator,
-    )
+    if (localStorage.getItem('session_state') !== null && localStorage.getItem('session_state') !== '') {
+      runWebMessageFlow(
+        this.webAuth.client.buildSessionManagementUrl(options),
+        options,
+        checkSessionManagementCallback(options, _this, cb),
+        checkSessionManagementValidator,
+        `${options.clientID} ${localStorage.getItem('session_state')}`,
+      )
+    }
   }
 }
 
@@ -112,12 +120,22 @@ function checkSessionManagementCallback(options, obj, cb) {
       const data = eventData.event.data
       console.info('RP session management received:', data)
       if (data === 'change') {
-        obj.webAuth.checkSession({}, cb)
+        // session state was change, auto call check session to refresh
+        const encodeState = btoa(
+          JSON.stringify({
+            usePostMessage: true,
+            date: new Date(),
+          }),
+        )
+        obj.webAuth.checkSession({ state: encodeState }, cb)
       } else if (data === 'error') {
         cb({
           error: 'login_required',
           error_description: 'Login Required!',
         })
+      } else {
+        // unchange
+        cb(null, data)
       }
     }
   }
