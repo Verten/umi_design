@@ -1,0 +1,18 @@
+/////////////////////////////////////////////////////////////////////////////
+// Global Mixins
+/////////////////////////////////////////////////////////////////////////////
+
+.transition(@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -o-transition: @transition;
+  transition: @transition;
+}
+
+.transition-default-on(@element) {
+  .transition(@element .25s cubic-bezier(.65, .05, .36, 1))
+}
+
+.transition-default() {
+  .transition-default-on(all)
+}

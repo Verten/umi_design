@@ -1,0 +1,106 @@
+/////////////////////////////////////
+// Layout - Main
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/variables/global';
+@import (reference) '../../../assets/animations/transitions';
+
+main {
+  overflow: hidden;
+  height: calc(~'100vh' - @systembar-height);
+  background: @layer1;
+
+  .app {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    margin-left: 0;
+
+    .appbody {
+      flex-direction: column;
+      display: block;
+      flex-grow: 1;
+      height: calc(~'100vh' - (@appbar-height + @systembar-height));
+      overflow: hidden;
+    }
+
+    .appnav {
+      flex: 1;
+      margin: 0;
+      height: calc(~'100vh' - (@appbar-height + @systembar-height));
+      opacity: 1;
+      width: 100%;
+      transition: height 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 0ms,
+        opacity 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 100ms;
+
+      &.hidden {
+        height: 0;
+        width: 0;
+        opacity: 0;
+        transition: opacity 125ms cubic-bezier(0.65, 0.05, 0.36, 1) 0ms,
+          width 0ms cubic-bezier(0.65, 0.05, 0.36, 1) 250ms, height 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 0ms;
+      }
+    }
+
+    .appcontent {
+      flex-basis: 100%;
+      flex-grow: 1;
+      overflow-y: auto;
+      height: 100%;
+      transition: margin-left 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 250ms;
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+@media @tablet {
+  main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+
+    .app {
+      .appbody {
+        display: flex;
+        flex-direction: row;
+      }
+
+      &.slide-left {
+        .transition-default-on(margin-left);
+        margin-left: -300px;
+      }
+
+      &.slide-right {
+        .transition-default-on(margin-left);
+        margin-left: 0;
+      }
+
+      .appnav {
+        transition: opacity 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 100ms,
+          margin-left 125ms cubic-bezier(0.65, 0.05, 0.36, 1);
+
+        &.hidden {
+          margin-left: -250px;
+          width: @appnav-width + @space-large;
+          height: calc(~'100vh' - (@appbar-height + @systembar-height));
+          transition: margin-left 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 100ms,
+            opacity 125ms cubic-bezier(0.65, 0.05, 0.36, 1);
+        }
+        flex: 0 0 auto;
+        width: @appnav-width;
+      }
+
+      .appcontent {
+        transition: margin-left 1000ms cubic-bezier(0.65, 0.05, 0.36, 1) 500ms;
+
+        &.hidden {
+          display: block;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+/////////////////////////////////////
+// Layout - Application bar
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/variables/global';
+@import (reference, multiple) '../../../assets/font/icon-names';
+
+.appbar {
+  width: 100%;
+  line-height: @appbar-height;
+  height: @appbar-height;
+  background: @layer1;
+  color: @text;
+  position: relative;
+
+  .actions-left {
+    float: left;
+
+    .subtitle {
+      opacity: 0.6;
+      font-size: 14px;
+      padding-left: 16px;
+    }
+
+    .item {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0 @space-base 0 @space-xxl;
+      height: 48px;
+
+      &:first-child {
+        user-select: none;
+      }
+    }
+
+    .icon {
+      color: @blue;
+      font-size: 16px;
+
+      &::before {
+        content: @icon-nav;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .actions-right {
+    float: right;
+    margin-right: @space-large;
+  }
+
+  .title {
+    height: @systembar-height;
+    font-size: 18px;
+    position: absolute;
+    top: 0;
+    left: 59px;
+    transition: height 0.25s cubic-bezier(0.65, 0.05, 0.36, 1) 100ms;
+    cursor: pointer;
+
+    .title-name {
+      cursor: pointer;
+    }
+
+    &.open-menu {
+      height: 0;
+      overflow: hidden;
+      transition: height 125ms cubic-bezier(0.65, 0.05, 0.36, 1);
+    }
+  }
+
+  .menu-anchor {
+    opacity: 1;
+    font-size: 14px;
+    width: 48px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: opacity 250ms cubic-bezier(0.65, 0.05, 0.36, 1) 100ms, width 125ms cubic-bezier(0.65, 0.05, 0.36, 1);
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+
+    &:not(.open-menu) {
+      transition: opacity 125ms cubic-bezier(0.65, 0.05, 0.36, 1), width 125ms cubic-bezier(0.65, 0.05, 0.36, 1) 100ms;
+      opacity: 0;
+      width: 0;
+    }
+  }
+}
+
+@media @tablet {
+  .appbar {
+    .left {
+      .nav {
+        padding-left: @space-xxl;
+      }
+    }
+
+    .right {
+      margin-right: @space-base;
+
+      .more {
+        display: none;
+      }
+
+      .items {
+        display: inline-block;
+      }
+    }
+
+    .title {
+      transition: left 0.25s cubic-bezier(0.65, 0.05, 0.36, 1) 100ms;
+
+      &.open-menu {
+        height: @systembar-height;
+        left: 248px;
+        transition: left 125ms cubic-bezier(0.65, 0.05, 0.36, 1);
+      }
+    }
+  }
+}

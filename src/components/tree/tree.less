@@ -1,15 +1,15 @@
 /////////////////////////////////////
 // Tree
 /////////////////////////////////////
-@import (reference, multiple) "../font/icon-names";
-@import (reference, multiple) "../variables/global";
+@import (reference, multiple) '../../assets/font/icon-names';
+@import (reference, multiple) '../../assets/variables/global';
 
 .tree {
   overflow-x: hidden;
 
   ::before {
     font-size: 14px;
-    font-family: "Ericsson Icons";
+    font-family: 'Ericsson Icons';
     vertical-align: middle;
     text-align: center;
   }
@@ -36,7 +36,7 @@
       display: inline-block;
       margin-left: -32px;
       width: 32px;
-      content: "";
+      content: '';
     }
   }
 
@@ -76,7 +76,8 @@
     color: @white;
   }
 
-  .item, .title {
+  .item,
+  .title {
     display: block;
     cursor: pointer;
     padding: 6px 0 6px 100%;
@@ -106,10 +107,11 @@
 }
 
 .navigation {
-  height: calc(~"100%" - 44px);
+  height: calc(~'100%' - 44px);
   overflow-y: auto;
 
-  .item, .title {
+  .item,
+  .title {
     padding: 12px 8px 12px 100%;
   }
 }
