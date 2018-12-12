@@ -9,7 +9,7 @@ function BasicLayout(props) {
   return (
     <Fragment>
       <Header />
-      <Body>{props.children}</Body>
+      <Body {...props}>{props.children}</Body>
     </Fragment>
   )
 }

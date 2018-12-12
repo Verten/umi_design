@@ -24,9 +24,10 @@ export class Home extends Component {
       console.info(`fetchUserInfo with error:`, error)
     } else {
       console.info(`fetchUserInfo with result:`, result)
-      this.setState({
-        isAuthenticated: true,
-      })
+      this._ismounted &&
+        this.setState({
+          isAuthenticated: true,
+        })
     }
   }
 
@@ -39,6 +40,7 @@ export class Home extends Component {
   }
 
   componentDidMount = () => {
+    this._ismounted = true
     const { auth } = this.props
     const encodeState = btoa(
       JSON.stringify({
@@ -48,6 +50,10 @@ export class Home extends Component {
     )
     auth.checkSession({ state: encodeState }, this.fetchUserInfo)
     auth.connectWithSessionManagement(this.sessionManagement)
+  }
+
+  componentWillUnmount() {
+    this._ismounted = false
   }
 
   render() {

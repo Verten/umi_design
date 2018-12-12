@@ -32,7 +32,6 @@ export class LandingPage extends Component {
   render() {
     return (
       <div className={styles.normal}>
-        <div className={styles.welcome} />
         <ul className={styles.list}>
           <li>
             <Button icon="icon-avatar" onClick={this.handleLogin()}>

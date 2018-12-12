@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import styles from './styles.less'
+import { Object } from 'es6-shim'
 
 /**
  * tree: [
@@ -26,28 +28,44 @@ import styles from './styles.less'
 
 export class Tree extends Component {
   static propTypes = {
+    theme: PropTypes.string,
     tree: PropTypes.array,
-    getSelectedMenu: PropTypes.func,
+    selectedTree: PropTypes.string,
+    opendTree: PropTypes.string,
+    getSelectedTree: PropTypes.func,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      menuStatus: {},
-      activateMenuItem: null,
+      menuStatus: this.initOpenTree(props),
+      activateMenuItem: props.selectedTree,
+    }
+    if (props.getSelectedTree && props.selectedTree) {
+      this.props.getSelectedTree(this.state.activateMenuItem)
     }
   }
 
-  handleClickMenu(e, menuName) {
+  initOpenTree(props) {
+    return props.opendTree ? { [props.opendTree]: true } : {}
+  }
+
+  handleClickMenu(e, menuName, menuType) {
     const { menuStatus } = this.state
-    menuStatus[menuName] = !menuStatus[menuName]
-    this.setState({
+    const nextState = {
       menuStatus,
-      activateMenuItem: menuName,
-    })
-    if (this.props.getSelectedMenu) {
-      this.props.getSelectedMenu(menuName)
     }
+    if (menuType === 'menu-item') {
+      Object.assign(nextState, {
+        activateMenuItem: menuName,
+      })
+    } else if (menuType === 'menu') {
+      menuStatus[menuName] = !menuStatus[menuName]
+    }
+    if (this.props.getSelectedTree && menuType === 'menu-item') {
+      this.props.getSelectedTree(menuName)
+    }
+    this.setState(nextState)
   }
 
   renderMenu(tree) {
@@ -59,7 +77,7 @@ export class Tree extends Component {
             <li key={_tree.name}>
               <span
                 className={`${styles.title} ${this.state.menuStatus[_tree.name] ? styles.opened : ''} ${styles.item}`}
-                onClick={e => this.handleClickMenu(e, _tree.name)}>
+                onClick={e => this.handleClickMenu(e, _tree.name, 'menu')}>
                 {_tree.name}
               </span>
               {this.renderMenu(_tree.tree)}
@@ -68,12 +86,12 @@ export class Tree extends Component {
         } else {
           menu.push(
             <li key={_tree.name}>
-              <a
+              <Link
                 className={`${styles.item} ${this.state.activateMenuItem === _tree.name ? styles.active : ''}`}
-                href={_tree.path}
-                onClick={e => this.handleClickMenu(e, _tree.name)}>
+                to={_tree.path}
+                onClick={e => this.handleClickMenu(e, _tree.name, 'menu-item')}>
                 {_tree.name}
-              </a>
+              </Link>
             </li>,
           )
         }
