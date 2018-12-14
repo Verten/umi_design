@@ -1,12 +1,19 @@
 /////////////////////////////////////
 // Dropdowns
 /////////////////////////////////////
-@import (reference, multiple) "../font/icon-names";
+@import (reference, multiple) '../../../assets/font/icon-names';
 
 .dropdown {
+  align-items: center;
+  display: flex;
   position: relative;
   width: fit-content;
   // display: inline-block;
+
+  .label-wrapper {
+    display: inline-block;
+    margin-right: 8px;
+  }
 
   &.more {
     .btn {
@@ -55,7 +62,7 @@
     &::after {
       content: @icon-chevron-down;
       padding-left: 8px;
-      font-family: "Ericsson Icons" !important;
+      font-family: 'Ericsson Icons' !important;
       vertical-align: middle;
       line-height: 15px;
     }
@@ -69,18 +76,18 @@
     }
   }
 
-  &[data-type="multi"] {
+  &[data-type='multi'] {
     .item {
-      input[type="checkbox"] {
+      input[type='checkbox'] {
         position: fixed;
       }
     }
   }
 
-  &[data-type="combo"] {
+  &[data-type='combo'] {
     width: inherit;
 
-    .combo:not([disabled="true"]) {
+    .combo:not([disabled='true']) {
       &:active + .btn,
       &:focus + .btn {
         border-color: @link-blue;

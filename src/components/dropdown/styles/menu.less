@@ -1,7 +1,7 @@
 /////////////////////////////////////
 // Dropdown-menu
 /////////////////////////////////////
-@import (reference, multiple) "../variables/global";
+@import (reference, multiple) '../../../assets/variables/global';
 
 .menu {
   position: absolute;
@@ -10,13 +10,13 @@
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
-  width: 100%;
+  // width: 100%;
   margin: @space-small 0 0;
   padding: @space-small 0;
   background: @menu-background;
   border: solid 1px @input-border;
   text-align: left;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 
   &.right {
     right: 0;
@@ -74,7 +74,7 @@
 
   .empty {
     display: none;
-    opacity: .6;
+    opacity: 0.6;
     text-align: center;
 
     &.visible {

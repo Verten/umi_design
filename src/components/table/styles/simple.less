@@ -1,0 +1,59 @@
+/////////////////////////////////////
+// Table - Simple
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/variables/global';
+
+.table {
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: @space-xl;
+
+  th {
+    border-bottom: 1px solid @table-outer-gray;
+    font-weight: @weight-medium;
+  }
+
+  td {
+    opacity: 0.8;
+  }
+
+  thead {
+    font-weight: @weight-medium;
+  }
+
+  tr {
+    &:last-child td {
+      border-bottom: 1px solid @table-outer-gray;
+    }
+
+    &:not(:last-child) td {
+      border-bottom: 1px solid @table-inner-gray;
+    }
+
+    &.selected {
+      td {
+        background-color: @table-selected;
+      }
+    }
+
+    th,
+    td {
+      padding: @space-large;
+    }
+  }
+
+  &.no-head tr:last-child td {
+    border-bottom: 0;
+  }
+
+  &:not(.dashed) {
+    tbody > tr {
+      &:hover {
+        background-color: @table-hover;
+      }
+    }
+  }
+}

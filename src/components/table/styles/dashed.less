@@ -1,0 +1,23 @@
+/////////////////////////////////////
+// Table - Dashed
+/////////////////////////////////////
+
+.table {
+  &.dashed tr {
+    &:hover {
+      td {
+        background: @table-hover;
+      }
+    }
+
+    &:not(:last-child) {
+      /* size in y-axis is equal to td height + padding top + padding bottom */
+      /* position in y-axis is -1 * size/2 - 2px */
+      /* makes dots repeat in round manner */
+
+      td {
+        border-bottom-style: dashed;
+      }
+    }
+  }
+}

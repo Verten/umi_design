@@ -1,0 +1,64 @@
+/////////////////////////////////////
+// Table - Pills
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/variables/global';
+
+.pill {
+  display: inline-block;
+  margin-bottom: @space-base;
+  margin-right: @space-small;
+  padding: 2px 12px;
+  border-radius: 16px;
+  line-height: 25px;
+  color: @text;
+  background: fadeout(@pills-background, 60%);
+  opacity: 0.8;
+
+  .icon {
+    vertical-align: middle;
+    font-size: 14px;
+
+    &::before {
+      margin-right: 4px;
+    }
+  }
+
+  &:empty {
+    display: none;
+  }
+
+  &.severity {
+    &-critical .icon {
+      color: @red;
+    }
+    &-major .icon {
+      color: @orange;
+    }
+    &-minor .icon {
+      color: @yellow;
+    }
+    &-warning .icon {
+      color: @link-blue;
+    }
+    &-indeterminate .icon {
+      color: @gray;
+    }
+    &-cleared .icon {
+      color: @green;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  &.selected {
+    background: @pills-background;
+    opacity: 1;
+
+    .icon {
+      font-size: 14px;
+    }
+  }
+}

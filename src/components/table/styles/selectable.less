@@ -1,0 +1,22 @@
+/////////////////////////////////////
+// Table - Selectable
+/////////////////////////////////////
+
+.table {
+  &.selectable {
+    th:first-child, td:first-child {
+      width: 42px;
+      padding-right: 0;
+    }
+
+    label {
+      padding: 0;
+    }
+
+    tr {
+      &:not(:last-child) td {
+        border-bottom: 1px solid @table-inner-gray;
+      }
+    }
+  }
+}

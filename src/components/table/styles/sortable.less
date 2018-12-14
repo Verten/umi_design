@@ -1,0 +1,47 @@
+/////////////////////////////////////
+// Table - Sortable
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/font/icon-names';
+@import (reference, multiple) '../../../assets/variables/global';
+
+.table {
+  &.sortable {
+    th {
+      font-weight: @weight-bold;
+
+      &::after {
+        font-family: 'Ericsson Icons';
+        margin-left: @space-base;
+        // vertical-align: middle;
+        // float: right;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+
+        &::after {
+          color: @blue;
+        }
+      }
+
+      &.is-sortable {
+        &::after {
+          content: @icon-sorting;
+        }
+      }
+
+      &.asc {
+        &::after {
+          content: @icon-sort-up;
+        }
+      }
+
+      &.desc {
+        &::after {
+          content: @icon-sort-down;
+        }
+      }
+    }
+  }
+}

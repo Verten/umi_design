@@ -1,0 +1,17 @@
+/////////////////////////////////////
+// Table - Striped
+/////////////////////////////////////
+
+.table {
+  &.striped tr {
+    &:not(:last-child) {
+      td {
+        border-bottom-color: transparent;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: @table-striped-gray;
+    }
+  }
+}
