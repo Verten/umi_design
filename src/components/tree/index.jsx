@@ -59,11 +59,11 @@ export class Tree extends Component {
       Object.assign(nextState, {
         activateMenuItem: menuName,
       })
+      if(this.props.getSelectedTree){
+        this.props.getSelectedTree(menuName)
+      }
     } else if (menuType === 'menu') {
       menuStatus[menuName] = !menuStatus[menuName]
-    }
-    if (this.props.getSelectedTree && menuType === 'menu-item') {
-      this.props.getSelectedTree(menuName)
     }
     this.setState(nextState)
   }
