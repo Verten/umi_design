@@ -55,6 +55,7 @@ export class Callback extends Component {
       try {
         decodedState = JSON.parse(atob(state))
       } catch (e) {
+        console.warn('Decrypt state failed. Wait for iframe timeout function')
         this.redirectWithError(e)
       }
       if (decodedState !== '') {
@@ -67,6 +68,8 @@ export class Callback extends Component {
           mainWin.postMessage(auth.initPostAuthorizationResponse(message), targetOrigin)
         }
       }
+    } else {
+      console.warn('State was empty, null or undefined. Wait for iframe timeout function')
     }
   }
 

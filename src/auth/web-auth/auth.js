@@ -58,9 +58,7 @@ WebAuth.prototype.checkSession = function(options, cb) {
     },
   )
 
-  if (!options.nonce) {
-    params = this.transactionManager.process(params)
-  }
+  params = this.transactionManager.process(params)
 
   if (!params.redirectUri) {
     return cb({ error: 'error', error_description: "redirectUri can't be empty" })
@@ -130,10 +128,11 @@ WebAuth.prototype.validateAuthenticationResponse = function(options, parsedHash,
   let transactionState = options.state || (transaction && transaction.state) || null
 
   let transactionStateMatchesState = transactionState === state
-  let shouldBypassStateChecking = !state && !transactionState && options.__enableIdPInitiatedLogin
+  let shouldBypassStateChecking = !state && !transactionState
 
   if (!shouldBypassStateChecking && !transactionStateMatchesState) {
     return cb({
+      state,
       error: 'invalid_token',
       errorDescription: '`state` does not match.',
     })

@@ -48,7 +48,7 @@ export class Home extends Component {
         date: new Date(),
       }),
     )
-    auth.checkSession({ state: encodeState }, this.fetchUserInfo)
+    auth.checkSession({ state: encodeState, nonce: auth.randomString() }, this.fetchUserInfo)
     auth.connectWithSessionManagement(this.sessionManagement)
   }
 
