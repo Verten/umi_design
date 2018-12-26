@@ -1,6 +1,7 @@
 import IframeHandler from '../helper/iframe-handler'
 import objectHelper from '../helper/object'
 import windowHelper from '../helper/window'
+import random from '../helper/random'
 import Warn from '../helper/warn'
 
 function runWebMessageFlow(targetUrl, options, callback, validatorCallback, message) {
@@ -127,7 +128,7 @@ function checkSessionManagementCallback(options, obj, cb) {
             date: new Date(),
           }),
         )
-        obj.webAuth.checkSession({ state: encodeState }, cb)
+        obj.webAuth.checkSession({ state: encodeState, nonce: random.randomString(32) }, cb)
       } else if (data === 'error') {
         cb({
           error: 'login_required',
