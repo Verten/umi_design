@@ -38,8 +38,6 @@ export default class Auth {
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     localStorage.setItem('session_state', authResult.sessionState)
-    // navigate to the home route
-    router.replace('/home')
   }
 
   checkSession(options, cb) {
