@@ -2,23 +2,26 @@
 
 ## text-field
 
-- [ ] default input
-- [ ] textarea
+- [x] input
+- [x] textarea
 - [ ] input with label
 - [ ] input with suffix
 - [ ] search input
 
 ## table
 
-- [ ] sortable table
-- [ ] filter table
-- [ ] selectable table
-- [ ] editable table
+- [ ] sortable
+- [ ] filter
+- [ ] selectable
+- [ ] editable
+- [ ] expandable
 
 ## notification
 
-- [ ] default notification
+- [ ] simple
+- [ ] dynamic
 
 ## dialog
 
-- [ ] default dialog
+- [ ] simple
+- [ ] fullscreen
