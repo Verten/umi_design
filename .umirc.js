@@ -19,4 +19,7 @@ export default {
       },
     ],
   ],
+  cssLoaderOptions: {
+    localIdentName: '[local]'
+  }
 }

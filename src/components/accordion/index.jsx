@@ -30,10 +30,8 @@ export class Accordion extends Component {
 
   render() {
     return (
-      <div className={styles.light}>
-        <div className={styles.accordion}>
-          <ul>{this.renderContent()}</ul>
-        </div>
+      <div className={styles.accordion}>
+        <ul>{this.renderContent()}</ul>
       </div>
     )
   }
