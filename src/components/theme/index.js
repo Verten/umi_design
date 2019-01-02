@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Theme extends Component {
-  render() {
-    const { children, theme = 'light' } = this.props
-    return (
-      <div className={theme}>{ children }</div>
-    )
-  }
+export default function Theme(props) {
+  const { children, theme = 'light' } = props
+  return (
+    <div className={theme}>{children}</div>
+  )
 }
