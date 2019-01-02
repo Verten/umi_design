@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './styles/styles.less'
+import './styles/styles.less'
 
 export default class Input extends Component {
   render() {
