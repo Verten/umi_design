@@ -23,7 +23,13 @@ export default class Checkbox extends Component {
     const { checked, label, indeterminate, ...domProps } = this.props
     return (
       <div>
-        <input {...domProps} id={this.checkboxId} type="checkbox" defaultChecked={checked} ref={this.checkboxRef} />
+        <input
+          {...domProps}
+          id={this.checkboxId}
+          type="checkbox"
+          defaultChecked={checked}
+          ref={this.checkboxRef}
+        />
         <label htmlFor={this.checkboxId}>{label}</label>
       </div>
     )
