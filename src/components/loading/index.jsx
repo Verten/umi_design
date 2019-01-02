@@ -11,7 +11,7 @@ const Loading = props => {
   } else {
     element = <button className={`${styles.btn} ${styles.loading} ${styles[size]}`} />
   }
-  return <div className={`${styles.center} ${styles.light}`}>{element}</div>
+  return <div className={`${styles.center}`}>{element}</div>
 }
 
 Loading.propTypes = {

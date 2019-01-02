@@ -4,7 +4,6 @@ import styles from './styles/styles.less'
 
 export class Dropdown extends Component {
   static propTypes = {
-    theme: PropTypes.string,
     label: PropTypes.string,
     operationName: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     operationItem: PropTypes.array,
@@ -56,21 +55,19 @@ export class Dropdown extends Component {
   }
 
   render() {
-    const { theme, operationName, label } = this.props
+    const { operationName, label } = this.props
     const { menuOpened, selectedItem } = this.state
     return (
-      <div className={`${styles[theme]} `}>
-        <div className={`${styles.dropdown}`}>
-          {label ? <div className={styles['label-wrapper']}>{label}</div> : null}
-          <div style={label ? { display: 'inline-block' } : null}>
-            <button
-              className={`${styles.btn} ${styles.clickable}`}
-              onClick={this.handleOpenMenu}
-              onBlur={this.handleCloseMenu}>
-              {selectedItem ? selectedItem : operationName}
-            </button>
-            <div className={`${styles.menu} ${menuOpened ? styles.visible : ''}`}>{this.renderItem()}</div>
-          </div>
+      <div className={`${styles.dropdown}`}>
+        {label ? <div className={styles['label-wrapper']}>{label}</div> : null}
+        <div style={label ? { display: 'inline-block' } : null}>
+          <button
+            className={`${styles.btn} ${styles.clickable}`}
+            onClick={this.handleOpenMenu}
+            onBlur={this.handleCloseMenu}>
+            {selectedItem ? selectedItem : operationName}
+          </button>
+          <div className={`${styles.menu} ${menuOpened ? styles.visible : ''}`}>{this.renderItem()}</div>
         </div>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import SimpleTable from '../components/table/simpleTable'
+import Theme from '../components/theme';
 
 const data = [
   { name: 'Edit Mobile Devices', operation: 'Edit', resource: 'Mobile Devices' },
@@ -60,9 +61,33 @@ const columns1 = [
 
 //compact, tiny, dashed, striped
 storiesOf('Table', module)
-  .add('default', () => <SimpleTable data={data} columns={columns} />)
-  .add('compact', () => <SimpleTable styles={'compact'} data={data} columns={columns} />)
-  .add('tiny', () => <SimpleTable styles={'tiny'} data={data} columns={columns} />)
-  .add('dashed', () => <SimpleTable styles={'dashed'} data={data} columns={columns} />)
-  .add('striped', () => <SimpleTable styles={'striped'} data={data} columns={columns} />)
-  .add('customize', () => <SimpleTable data={data1} columns={columns1} />)
+  .add('default', () => (
+    <Theme>
+      <SimpleTable data={data} columns={columns} />
+    </Theme>
+  ))
+  .add('compact', () => (
+    <Theme>
+      <SimpleTable styles={'compact'} data={data} columns={columns} />
+    </Theme>
+  ))
+  .add('tiny', () => (
+    <Theme>
+      <SimpleTable styles={'tiny'} data={data} columns={columns} />
+    </Theme>
+  ))
+  .add('dashed', () => (
+    <Theme>
+      <SimpleTable styles={'dashed'} data={data} columns={columns} />
+    </Theme>
+  ))
+  .add('striped', () => (
+    <Theme>
+      <SimpleTable styles={'striped'} data={data} columns={columns} />
+    </Theme>
+  ))
+  .add('customize', () => (
+    <Theme>
+      <SimpleTable data={data1} columns={columns1} />
+    </Theme>
+  ))

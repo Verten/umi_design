@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import Tree from '../components/tree'
+import Theme from '../components/theme';
 
 const trees = [
   {
@@ -31,9 +32,28 @@ const trees = [
 ]
 
 storiesOf('Tree', module)
-  .addDecorator(story => <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>)
-  .add('default', () => <Tree tree={trees} />)
-  .add('with active menu', () => <Tree tree={trees} selectedTree={'Menu2'} />)
+  .addDecorator(story => (
+    <Theme>
+      <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+    </Theme>
+  ))
+  .add('default', () => (
+    <Theme>
+      <Tree tree={trees} />
+    </Theme>
+  ))
+  .add('with active menu', () => (
+    <Theme>
+      <Tree tree={trees} selectedTree={'Menu2'} />
+    </Theme>
+  ))
   .add('with open menu', () => (
-    <Tree tree={trees} selectedTree={'SubMenu3-2'} opendTree={'Menu3'} getSelectedTree={action('Selected Tree')} />
+    <Theme>
+      <Tree
+        tree={trees}
+        selectedTree={'SubMenu3-2'}
+        opendTree={'Menu3'}
+        getSelectedTree={action('Selected Tree')}
+      />
+    </Theme>
   ))

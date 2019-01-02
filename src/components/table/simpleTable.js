@@ -5,14 +5,12 @@ import styles from './styles/styles.less'
 
 export class SimpleTable extends Component {
   static propTypes = {
-    theme: PropTypes.string,
     styles: PropTypes.string, // style can be: compact, tiny, dashed, striped
     data: PropTypes.array,
     columns: PropTypes.array,
   }
 
   static defaultProps = {
-    theme: 'light',
     styles: '',
   }
 
@@ -67,15 +65,13 @@ export class SimpleTable extends Component {
   renderTableFooter = () => {}
 
   render() {
-    const { theme, styles: propsStyle, columns } = this.props
+    const { styles: propsStyle, columns } = this.props
     const { data } = this.state
     return (
-      <div className={styles[theme]}>
-        <table className={`${styles.table} ${styles[propsStyle]}`}>
-          <thead>{this.renderTableHeader(columns)}</thead>
-          <tbody>{this.renderTableBody(columns, data)}</tbody>
-        </table>
-      </div>
+      <table className={`${styles.table} ${styles[propsStyle]}`}>
+        <thead>{this.renderTableHeader(columns)}</thead>
+        <tbody>{this.renderTableBody(columns, data)}</tbody>
+      </table>
     )
   }
 }

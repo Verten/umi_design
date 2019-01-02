@@ -28,7 +28,6 @@ import { Object } from 'es6-shim'
 
 export class Tree extends Component {
   static propTypes = {
-    theme: PropTypes.string,
     tree: PropTypes.array,
     selectedTree: PropTypes.string,
     opendTree: PropTypes.string,
@@ -101,10 +100,10 @@ export class Tree extends Component {
   }
 
   render() {
-    const { theme = 'light', tree } = this.props
+    const { tree } = this.props
     return (
-      <div className={styles[theme]}>
-        <div className={`${styles.tree} ${styles.navigation}`}>{this.renderMenu(tree)}</div>
+      <div className={`${styles.tree} ${styles.navigation}`}>
+        {this.renderMenu(tree)}
       </div>
     )
   }

@@ -5,7 +5,6 @@ import styles from './styles.less'
 
 export class Button extends Component {
   static propTypes = {
-    theme: PropTypes.string,
     primary: PropTypes.bool,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
@@ -15,17 +14,15 @@ export class Button extends Component {
   }
 
   render() {
-    const { icon, children, primary, disabled, warning, onClick, theme = 'light' } = this.props
+    const { icon, children, primary, disabled, warning, onClick } = this.props
     return (
-      <div className={styles[theme]}>
-        <button
-          className={`${styles.btn} ${primary ? styles.primary : ''} ${warning ? styles.warning : ''}`}
-          disabled={disabled}
-          onClick={onClick}>
-          {!isUndefined(icon) ? <i className={`${styles.icon} ${styles[icon]}`} /> : null}
-          {children}
-        </button>
-      </div>
+      <button
+        className={`${styles.btn} ${primary ? styles.primary : ''} ${warning ? styles.warning : ''}`}
+        disabled={disabled}
+        onClick={onClick}>
+        {!isUndefined(icon) ? <i className={`${styles.icon} ${styles[icon]}`} /> : null}
+        {children}
+      </button>
     )
   }
 }

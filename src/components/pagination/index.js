@@ -132,20 +132,18 @@ export class Pagination extends Component {
 
   render() {
     return (
-      <div className={`${styles.light} `}>
-        <div className={`${styles['pagination-group']}`} id="dynamic-pagination">
-          <ul className={styles.pagination}>
-            {this.renderPreviousButton()}
-            {this.renderPageIndex()}
-            {this.renderNextButton()}
-          </ul>
-          <Dropdown
-            label={'Show'}
-            operationName={this.props.pageSize}
-            operationItem={[10, 15, 20, 50, 100]}
-            itemChange={this.handleChangePageSize}
-          />
-        </div>
+      <div className={`${styles['pagination-group']}`} id="dynamic-pagination">
+        <ul className={styles.pagination}>
+          {this.renderPreviousButton()}
+          {this.renderPageIndex()}
+          {this.renderNextButton()}
+        </ul>
+        <Dropdown
+          label={'Show'}
+          operationName={this.props.pageSize}
+          operationItem={[10, 15, 20, 50, 100]}
+          itemChange={this.handleChangePageSize}
+        />
       </div>
     )
   }

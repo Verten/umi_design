@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import Accordion from '../components/accordion'
+import Theme from '../components/theme'
 
 const data = [
   {
@@ -33,4 +34,9 @@ const data = [
   },
 ]
 
-storiesOf('Accordion', module).add('default', () => <Accordion data={data} />)
+storiesOf('Accordion', module)
+  .add('default', () => (
+    <Theme>
+      <Accordion data={data} />
+    </Theme>
+  ))
