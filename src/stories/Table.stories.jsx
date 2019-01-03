@@ -64,13 +64,14 @@ const mockColumns = [
   { key: 1, dataIndex: 'name', title: 'name' },
   { key: 2, dataIndex: 'age', title: 'age' },
   { key: 3, dataIndex: 'address', title: 'address' },
+  { key: 4, dataIndex: 'country', title: 'country' }
 ]
 
 const mockData = [
-  { key: 1, name: 'john', age: 31, address: 'london' },
-  { key: 2, name: 'mary', age: 41, address: 'sidney' },
-  { key: 3, name: 'sally', age: 11, address: 'guangdong' },
-  { key: 4, name: 'tom', age: 21, address: 'henan' },
+  { key: 1, name: 'john', age: 31, address: 'london', country: 'china' },
+  { key: 2, name: 'mary', age: 41, address: 'sidney', country: 'china' },
+  { key: 3, name: 'sally', age: 11, address: 'guangdong', country: 'china' },
+  { key: 4, name: 'tom', age: 21, address: 'henan', country: 'china' },
 ]
 
 
@@ -83,22 +84,22 @@ storiesOf('Table', module)
   ))
   .add('compact', () => (
     <Theme>
-      <SimpleTable styles={'compact'} data={data} columns={columns} />
+      <SimpleTable types={['compact']} data={data} columns={columns} />
     </Theme>
   ))
   .add('tiny', () => (
     <Theme>
-      <SimpleTable styles={'tiny'} data={data} columns={columns} />
+      <SimpleTable types={['tiny']} data={data} columns={columns} />
     </Theme>
   ))
   .add('dashed', () => (
     <Theme>
-      <SimpleTable styles={'dashed'} data={data} columns={columns} />
+      <SimpleTable types={['dashed']} data={data} columns={columns} />
     </Theme>
   ))
   .add('striped', () => (
     <Theme>
-      <SimpleTable styles={'striped'} data={data} columns={columns} />
+      <SimpleTable types={['striped']} data={data} columns={columns} />
     </Theme>
   ))
   .add('customize', () => (
@@ -121,7 +122,7 @@ class SelectedTable extends Component {
     }
     return (
       <Theme>
-        <Table data={mockData} columns={mockColumns} rowSelection={rowSelection} />
+        <Table types={['selectable']} data={mockData} columns={mockColumns} rowSelection={rowSelection} />
       </Theme>
     )
   }

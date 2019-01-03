@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react'
+import React, { Component, createRef, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
 import './styles/styles.less'
@@ -26,7 +26,7 @@ export default class Checkbox extends Component {
   render() {
     const { indeterminate, children, ...domProps } = this.props
     return (
-      <div>
+      <Fragment>
         <input
           {...domProps}
           id={this.checkboxId}
@@ -34,7 +34,7 @@ export default class Checkbox extends Component {
           ref={this.checkboxRef}
         />
         <label htmlFor={this.checkboxId}>{children}</label>
-      </div>
+      </Fragment>
     )
   }
 }
