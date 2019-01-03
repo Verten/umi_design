@@ -1,8 +1,12 @@
 import React, { Component, createRef } from 'react'
+import PropTypes from 'prop-types'
 import { uniqueId } from 'lodash'
 import './styles/styles.less'
 
 export default class Checkbox extends Component {
+  static propTypes = {
+    indeterminate: PropTypes.bool,
+  }
   constructor(props) {
     super(props)
     this.checkboxRef = createRef()
@@ -20,17 +24,16 @@ export default class Checkbox extends Component {
     checkboxElement.indeterminate = indeterminate
   }
   render() {
-    const { checked, label, indeterminate, ...domProps } = this.props
+    const { indeterminate, children, ...domProps } = this.props
     return (
       <div>
         <input
           {...domProps}
           id={this.checkboxId}
           type="checkbox"
-          defaultChecked={checked}
           ref={this.checkboxRef}
         />
-        <label htmlFor={this.checkboxId}>{label}</label>
+        <label htmlFor={this.checkboxId}>{children}</label>
       </div>
     )
   }

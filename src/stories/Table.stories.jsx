@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import SimpleTable from '../components/table/simpleTable'
-import Theme from '../components/theme';
+import Theme from '../components/theme'
+import Table from '../components/table'
 
 const data = [
   { name: 'Edit Mobile Devices', operation: 'Edit', resource: 'Mobile Devices' },
@@ -59,6 +60,20 @@ const columns1 = [
   },
 ]
 
+const mockColumns = [
+  { key: 1, dataIndex: 'name', title: 'name' },
+  { key: 2, dataIndex: 'age', title: 'age' },
+  { key: 3, dataIndex: 'address', title: 'address' },
+]
+
+const mockData = [
+  { key: 1, name: 'john', age: 31, address: 'london' },
+  { key: 2, name: 'mary', age: 41, address: 'sidney' },
+  { key: 3, name: 'sally', age: 11, address: 'guangdong' },
+  { key: 4, name: 'tom', age: 21, address: 'henan' },
+]
+
+
 //compact, tiny, dashed, striped
 storiesOf('Table', module)
   .add('default', () => (
@@ -91,3 +106,25 @@ storiesOf('Table', module)
       <SimpleTable data={data1} columns={columns1} />
     </Theme>
   ))
+
+
+class SelectedTable extends Component {
+  state = {
+    selectedKeys: [1, 2]
+  }
+  render() {
+    const rowSelection = {
+      selectedKeys: this.state.selectedKeys,
+      onChange: (selectedKeys) => {
+        this.setState({ selectedKeys })
+      }
+    }
+    return (
+      <Theme>
+        <Table data={mockData} columns={mockColumns} rowSelection={rowSelection} />
+      </Theme>
+    )
+  }
+}
+
+storiesOf('Table', module).add('selectable table', () => <SelectedTable />)
