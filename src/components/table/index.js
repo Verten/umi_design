@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
+import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
 
 export default class Table extends Component {
   static propTypes = {
-    type: PropTypes.string,
+    types: PropTypes.array,
     data: PropTypes.array,
     columns: PropTypes.array,
     rowSelection: PropTypes.object,
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectAll: false
-    }
   }
 
   renderHead() {
@@ -74,7 +68,7 @@ export default class Table extends Component {
 
   toggleSelectAll = e => {
     const { data, rowSelection } = this.props
-    const isSelectAll = e.target.checked
+    const isSelectAll = rowSelection.selectedKeys.length === 0
     let selectedKeys = isSelectAll ? data.map(record => record.key) : []
     rowSelection.onChange(selectedKeys)
   }
@@ -89,9 +83,9 @@ export default class Table extends Component {
   }
 
   render() {
-    const { type } = this.props
+    const { types } = this.props
     return (
-      <table className={`table ${type} selectable`}>
+      <table className={`table ${types.join(' ')}`}>
         <thead>{this.renderHead()}</thead>
         <tbody>{this.renderBody()}</tbody>
       </table>

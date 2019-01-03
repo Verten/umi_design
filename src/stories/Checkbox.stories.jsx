@@ -8,8 +8,8 @@ const title = 'Checkbox'
 storiesOf(title, module).add('default', () => (
   <Theme>
     <Checkbox onChange={e => console.log(e.target.checked)}>Default</Checkbox>
-    <Checkbox checked>Checked</Checkbox>
-    <Checkbox checked disabled>Disabled Checked</Checkbox>
+    <Checkbox defaultChecked>Checked</Checkbox>
+    <Checkbox defaultChecked disabled>Disabled Checked</Checkbox>
     <Checkbox indeterminate={true}>Indeterminate</Checkbox>
     <Checkbox indeterminate={true} disabled>Disabled Indeterminate</Checkbox>
   </Theme>

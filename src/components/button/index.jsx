@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { isUndefined } from 'lodash'
-import styles from './styles.less'
+import styles from './styles/styles.less'
 
 export class Button extends Component {
   static propTypes = {

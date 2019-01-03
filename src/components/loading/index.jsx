@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEqual } from 'lodash'
 import PropTypes from 'prop-types'
-import styles from './styles.less'
+import styles from './styles/styles.less'
 
 const Loading = props => {
   const { type = 'div', size = 'medium' } = props
