@@ -1,114 +1,28 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import SimpleTable from '../components/table/simpleTable'
 import Theme from '../components/theme'
 import Table from '../components/table'
-
-const data = [
-  { name: 'Edit Mobile Devices', operation: 'Edit', resource: 'Mobile Devices' },
-  { name: 'Delete Mobile Devices', operation: 'Delete', resource: 'Mobile Devices' },
-  { name: 'View IT Sevices List', operation: 'View', resource: 'IT Sevices' },
-  { name: 'Manage Users', operation: 'Manage', resource: 'Users' },
-  { name: 'Manage Organizations', operation: 'Manage', resource: 'Orginazitions' },
-  { name: 'Manage Roles', operation: 'Manage', resource: 'Roles and Permissions' },
-]
-
-const columns = [
-  {
-    Header: 'Permission Name',
-    accessor: 'name',
-  },
-  {
-    Header: 'Operation',
-    accessor: 'name',
-  },
-  {
-    Header: 'Resource',
-    accessor: 'resource',
-  },
-]
-
-const data1 = [
-  {
-    name: 'Tanner Linsley',
-    age: 26,
-    friend: {
-      name: 'Jason Maurer',
-      age: 23,
-    },
-  },
-]
-
-const columns1 = [
-  {
-    Header: 'Name',
-    accessor: 'name',
-  },
-  {
-    Header: 'Age',
-    accessor: 'age',
-    Cell: props => <span className="number">{props.value}</span>,
-  },
-  {
-    id: 'friendName',
-    Header: 'Friend Name',
-    accessor: d => d.friend.name,
-  },
-  {
-    Header: () => <span>Friend Age</span>,
-    accessor: 'friend.age',
-  },
-]
+import Button from '../components/button'
 
 const mockColumns = [
   { key: 1, dataIndex: 'name', title: 'name' },
   { key: 2, dataIndex: 'age', title: 'age' },
   { key: 3, dataIndex: 'address', title: 'address' },
-  { key: 4, dataIndex: 'country', title: 'country' }
+  { key: 4, dataIndex: 'country', title: 'country' },
+  {
+    key: 5, dataIndex: 'action', title: 'action',
+    render: (text, record) => (
+      <Button onClick={() => alert(record.name)}>show name</Button>
+    )
+  },
 ]
 
 const mockData = [
-  { key: 1, name: 'john', age: 31, address: 'london', country: 'china' },
-  { key: 2, name: 'mary', age: 41, address: 'sidney', country: 'china' },
-  { key: 3, name: 'sally', age: 11, address: 'guangdong', country: 'china' },
-  { key: 4, name: 'tom', age: 21, address: 'henan', country: 'china' },
+  { key: 2, name: 'ben', age: 41, address: 'sidney', country: 'china' },
+  { key: 4, name: 'doge', age: 21, address: 'henan', country: 'china' },
+  { key: 1, name: 'aya', age: 31, address: 'london', country: 'china' },
+  { key: 3, name: 'cat', age: 11, address: 'guangdong', country: 'china' },
 ]
-
-
-//compact, tiny, dashed, striped
-storiesOf('Table', module)
-  .add('default', () => (
-    <Theme>
-      <SimpleTable data={data} columns={columns} />
-    </Theme>
-  ))
-  .add('compact', () => (
-    <Theme>
-      <SimpleTable types={['compact']} data={data} columns={columns} />
-    </Theme>
-  ))
-  .add('tiny', () => (
-    <Theme>
-      <SimpleTable types={['tiny']} data={data} columns={columns} />
-    </Theme>
-  ))
-  .add('dashed', () => (
-    <Theme>
-      <SimpleTable types={['dashed']} data={data} columns={columns} />
-    </Theme>
-  ))
-  .add('striped', () => (
-    <Theme>
-      <SimpleTable types={['striped']} data={data} columns={columns} />
-    </Theme>
-  ))
-  .add('customize', () => (
-    <Theme>
-      <SimpleTable data={data1} columns={columns1} />
-    </Theme>
-  ))
-
-
 class SelectedTable extends Component {
   state = {
     selectedKeys: [1, 2]
@@ -122,10 +36,52 @@ class SelectedTable extends Component {
     }
     return (
       <Theme>
-        <Table types={['selectable']} data={mockData} columns={mockColumns} rowSelection={rowSelection} />
+        <Table data={mockData} columns={mockColumns} rowSelection={rowSelection} />
       </Theme>
     )
   }
 }
 
-storiesOf('Table', module).add('selectable table', () => <SelectedTable />)
+class SortableTable extends Component {
+  render() {
+    const sortableTableColumns = [...mockColumns]
+    sortableTableColumns[1].sorter = (a, b) => a < b
+    sortableTableColumns[0].sorter = (a, b) => a < b
+    return (
+      <Theme>
+        <Table columns={sortableTableColumns} data={mockData} />
+      </Theme>
+    )
+  }
+}
+
+//compact, tiny, dashed, striped
+storiesOf('Table', module)
+  .add('default', () => (
+    <Theme>
+      <Table data={mockData} columns={mockColumns} />
+    </Theme>
+  ))
+  .add('compact', () => (
+    <Theme>
+      <Table type="compact" data={mockData} columns={mockColumns} />
+    </Theme>
+  ))
+  .add('tiny', () => (
+    <Theme>
+      <Table type="tiny" data={mockData} columns={mockColumns} />
+    </Theme>
+  ))
+  .add('dashed', () => (
+    <Theme>
+      <Table type="dashed" data={mockData} columns={mockColumns} />
+    </Theme>
+  ))
+  .add('striped', () => (
+    <Theme>
+      <Table type="striped" data={mockData} columns={mockColumns} />
+    </Theme>
+  ))
+  .add('selectable table', () => <SelectedTable />)
+  .add('sortable table', () => <SortableTable />)
+
