@@ -1,0 +1,23 @@
+/////////////////////////////////////
+// Table - Filterable
+/////////////////////////////////////
+@import (reference, multiple) '../../../assets/font/icon-names';
+@import (reference, multiple) '../../../assets/variables/global';
+
+.table {
+  &.filterable {
+    th {
+      button.icon {
+        font-weight: @weight-bold;
+        background: transparent;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        margin-left: 3px;
+        &:hover {
+          color: @blue; 
+        }
+      }
+    }
+  }
+}

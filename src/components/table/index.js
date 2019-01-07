@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
+import Dropdown from '../dropdown'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
-const SORT_ASC = 'asc'
-const SORT_DESC = 'desc'
-const SORT_DEFUALT = 'is-sortable'
-const SORT_PROP_NAME = 'sorter'
+const TABLE_DROPDOWN_KEY = 'eds-table-dropdown'
+const SORT_ASC = styles.asc
+const SORT_DESC = styles.desc
+const SORT_DEFUALT = styles['is-sortable']
+const FILTER_ALL = 'All'
 
 export default class Table extends Component {
   static propTypes = {
@@ -26,31 +28,43 @@ export default class Table extends Component {
     super(props)
     this.state = {
       sortOrder: SORT_DEFUALT,
-      sortColumnKey: '',
+      sortColumn: '',
+      filterKey: '',
+      filterColumn: '',
     }
   }
 
   renderHead() {
     const { columns, rowSelection, data } = this.props
-    const { sortOrder, sortColumnKey } = this.state
+    const { sortOrder, sortColumn } = this.state
     const cols = columns.map(col => {
-      const { key, title, sorter } = col
-      const handleClick = typeof sorter === 'function' ? () => this.toggleSorter(col) : null
-      let thClassName = sorter ? SORT_DEFUALT : ''
-      if (key === sortColumnKey) {
-        switch (sortOrder) {
-          case SORT_ASC:
-            thClassName = SORT_ASC
-            break
-          case SORT_DESC:
-            thClassName = SORT_DESC
-            break
-          default:
-            thClassName = SORT_DEFUALT
-        }
+      const { key, title, sortable, filterable, dataIndex } = col
+      const handleClick = sortable ? () => this.toggleSorter(col) : null
+      let thClassName = []
+      let thChildren = [title]
+      if (sortable) {
+        const sortableClassName = key === sortColumn ? sortOrder : SORT_DEFUALT 
+        thClassName.push(sortableClassName)
+      }
+      if (filterable) {
+        const filterOptions = this.getFilterOptions(dataIndex)
+        thChildren.push(
+          <Dropdown
+            key={TABLE_DROPDOWN_KEY}
+            type="inline"
+            icon={styles['icon-filter']}
+            seletedItem={title}
+            operationItem={filterOptions}
+            itemChange={selectedItem => {
+              this.setState({ filterColumn: dataIndex, filterKey: selectedItem })}
+            }
+          />
+        )
       }
       return (
-        <th onClick={handleClick} className={thClassName} key={key}>{title}</th>
+        <th onClick={handleClick} className={thClassName} key={key}>
+          {thChildren}
+        </th>
       )
     })
     if (rowSelection) {
@@ -117,13 +131,19 @@ export default class Table extends Component {
     const curIndex = sortOrderTypes.indexOf(sortOrder)
     const nextIndex = curIndex >= sortOrderTypes.length - 1 ? 0 : curIndex + 1
     const nextSortOrder = sortOrderTypes[nextIndex]
-    this.setState({ sortOrder: nextSortOrder, sortColumnKey: col.key })
+    this.setState((prevState) => {
+      const { key } = col
+      return {
+        sortOrder: prevState.sortColumn === key ? nextSortOrder : sortOrderTypes[1],
+        sortColumn: key
+      }
+    })
   }
 
   sortData(data) {
-    const { sortOrder, sortColumnKey } = this.state
+    const { sortOrder, sortColumn } = this.state
     const { columns } = this.props
-    const sorterBaseColumn = columns.find(col => col.key === sortColumnKey)
+    const sorterBaseColumn = columns.find(col => col.key === sortColumn)
     if (sorterBaseColumn && sortOrder !== SORT_DEFUALT) {
       const { dataIndex } = sorterBaseColumn
       const ascSorter = (a, b) => {
@@ -146,10 +166,24 @@ export default class Table extends Component {
     }
     return data
   }
+  
+  getFilterOptions(columnKey) {
+    const { data } = this.props
+    const dataKeys = data.map(record => record[columnKey])
+    const uniqueKeys = new Set(dataKeys)  
+    return [FILTER_ALL, ...uniqueKeys]
+  }
+
+  filterData(data) {
+    const { filterKey, filterColumn } = this.state
+    const filteredData = data.filter(record => record[filterColumn] === filterKey)
+    return filteredData.length > 0 ? filteredData : data
+  }
 
   renderBody() {
     let { data, rowSelection } = this.props
     let tableData = this.sortData([...data])
+    tableData = this.filterData([...tableData])
     const body = tableData.map(record => {
       const selected = rowSelection && rowSelection.selectedKeys.includes(record.key)
       return <tr className={selected ? 'selected' : ''} key={record.key}>{this.renderRow(record)}</tr>
@@ -159,13 +193,17 @@ export default class Table extends Component {
 
   getTableClassName() {
     const { type = '', columns, rowSelection } = this.props
-    const sortable = columns.some(col => typeof col.sorter === 'function')
     const classNames = ['table', type]
+    const sortable = columns.some(col => col.sortable)
+    const filterable = columns.some(col => col.filterable)
     if (rowSelection) {
-      classNames.push('selectable')
+      classNames.push(styles.selectable)
     }
     if (sortable) {
-      classNames.push('sortable')
+      classNames.push(styles.sortable)
+    }
+    if (filterable) {
+      classNames.push(styles.filterable)
     }
     return classNames.join(' ')
   }

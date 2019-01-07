@@ -2,16 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles/styles.less'
 
+const TYPE_INLINE = 'inline'
+const TYPE_BLOCK = 'block'
+
 export class Dropdown extends Component {
   static propTypes = {
     label: PropTypes.string,
     operationName: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     operationItem: PropTypes.array,
     itemChange: PropTypes.func,
-  }
-
-  static defaultProps = {
-    theme: 'light',
   }
 
   constructor(props) {
@@ -55,17 +54,17 @@ export class Dropdown extends Component {
   }
 
   render() {
-    const { operationName, label } = this.props
+    const { operationName, label, icon, type } = this.props
     const { menuOpened, selectedItem } = this.state
     return (
-      <div className={`${styles.dropdown}`}>
+      <div className={`${styles.dropdown}`} style={{display: type === TYPE_INLINE ? 'inline-block' : 'flex'}}>
         {label ? <div className={styles['label-wrapper']}>{label}</div> : null}
         <div style={label ? { display: 'inline-block' } : null}>
           <button
-            className={`${styles.btn} ${styles.clickable}`}
+            className={icon ? `${styles.icon} ${icon}` : `${styles.btn} ${styles.clickable}`}
             onClick={this.handleOpenMenu}
             onBlur={this.handleCloseMenu}>
-            {selectedItem ? selectedItem : operationName}
+            {selectedItem && !icon ? selectedItem : operationName}
           </button>
           <div className={`${styles.menu} ${menuOpened ? styles.visible : ''}`}>{this.renderItem()}</div>
         </div>
