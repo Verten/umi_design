@@ -1,5 +1,7 @@
 // ref: https://umijs.org/config/
 export default {
+  base: 'demo',
+  publicPath: '/demo/',
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     [

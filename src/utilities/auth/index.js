@@ -3,9 +3,9 @@ import auth from '../../auth/web-auth/auth'
 
 export default class Auth {
   auth = new auth({
-    domain: 'localhost:3000', // test authorize endpoint by nodejs
-    clientID: 'accountManagerAPP',
-    redirectUri: 'http://localhost:8000/callback',
+    domain: 'localhost:27161/selfcare/v1', // test authorize endpoint by nodejs
+    clientID: 'IWSAPP',
+    redirectUri: 'https://localhost:3000/token',
     responseType: 'code',
     scope: 'openid',
   })
@@ -37,7 +37,9 @@ export default class Auth {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
-    localStorage.setItem('session_state', authResult.sessionState)
+    if (authResult.sessionState) {
+      localStorage.setItem('session_state', authResult.sessionState)
+    }
   }
 
   checkSession(options, cb) {

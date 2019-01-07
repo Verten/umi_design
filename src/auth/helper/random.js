@@ -1,4 +1,4 @@
-import windowHelper from './window'
+import { getWindow } from './window'
 
 function randomString(length) {
   // eslint-disable-next-line
@@ -6,7 +6,7 @@ function randomString(length) {
   let result = []
   let charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._~'
 
-  let cryptoObj = windowHelper.getWindow().crypto || windowHelper.getWindow().msCrypto
+  let cryptoObj = getWindow().crypto || getWindow().msCrypto
   if (!cryptoObj) {
     return null
   }

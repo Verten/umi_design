@@ -41,9 +41,6 @@ export class Tree extends Component {
       menuStatus: this.initOpenTree(props),
       activateMenuItem: props.selectedTree,
     }
-    if (props.getSelectedTree && props.selectedTree) {
-      this.props.getSelectedTree(this.state.activateMenuItem)
-    }
   }
 
   initOpenTree(props) {
@@ -59,7 +56,7 @@ export class Tree extends Component {
       Object.assign(nextState, {
         activateMenuItem: menuName,
       })
-      if(this.props.getSelectedTree){
+      if (this.props.getSelectedTree) {
         this.props.getSelectedTree(menuName)
       }
     } else if (menuType === 'menu') {
@@ -98,6 +95,12 @@ export class Tree extends Component {
       }
     })
     return <ul>{menu}</ul>
+  }
+
+  componentDidMount() {
+    if (this.props.getSelectedTree && this.props.selectedTree) {
+      this.props.getSelectedTree(this.props.selectedTree)
+    }
   }
 
   render() {

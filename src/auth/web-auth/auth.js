@@ -1,7 +1,7 @@
 import qs from 'qs'
 import error from '../helper/error'
 import assert from '../helper/assert'
-import windowHelper from '../helper/window'
+import windowHelper, { getWindow } from '../helper/window'
 import objectHelper from '../helper/object'
 import random from '../helper/random'
 import Authentication from '../authentication/authentication'
@@ -101,7 +101,7 @@ WebAuth.prototype.parseHash = function(options, cb) {
     options = options || {}
   }
 
-  let _window = windowHelper.getWindow()
+  let _window = getWindow()
 
   let hashStr = options.hash === undefined ? _window.location.search : options.hash
   hashStr = hashStr.replace(/^\??\/?/, '')
