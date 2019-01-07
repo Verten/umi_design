@@ -89,7 +89,9 @@ function checkAuthorizeValidator(options) {
 
 function checkSessionManagementValidator(options) {
   return eventData => {
-    return eventData.event.data === 'error' || eventData.event.data === 'unchanged' || eventData.event.data === 'change'
+    return (
+      eventData.event.data === 'error' || eventData.event.data === 'unchanged' || eventData.event.data === 'changed'
+    )
   }
 }
 
@@ -120,8 +122,8 @@ function checkSessionManagementCallback(options, obj, cb) {
       // check data in event should be change, unchange, error
       const data = eventData.event.data
       console.info('RP session management received:', data)
-      if (data === 'change') {
-        // session state was change, auto call check session to refresh
+      if (data === 'changed') {
+        // session state was changed, auto call check session to refresh
         const encodeState = btoa(
           JSON.stringify({
             usePostMessage: true,
@@ -135,7 +137,7 @@ function checkSessionManagementCallback(options, obj, cb) {
           error_description: 'Login Required!',
         })
       } else {
-        // unchange
+        // unchanged
         cb(null, data)
       }
     }
