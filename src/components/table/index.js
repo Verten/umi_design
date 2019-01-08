@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
 import Dropdown from '../dropdown'
+import Pagination from '../pagination'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
@@ -26,11 +27,14 @@ export default class Table extends Component {
   
   constructor(props) {
     super(props)
+    const { pagination = { pageSize: 0 } } = this.props
     this.state = {
       sortOrder: SORT_DEFUALT,
       sortColumn: '',
       filterKey: '',
       filterColumn: '',
+      currentPage: 1,
+      pageSize: pagination.pageSize,
     }
   }
 
@@ -56,7 +60,7 @@ export default class Table extends Component {
             seletedItem={title}
             operationItem={filterOptions}
             itemChange={selectedItem => {
-              this.setState({ filterColumn: dataIndex, filterKey: selectedItem })}
+              this.setState({ filterColumn: dataIndex, filterKey: selectedItem, currentPage: 1 })}
             }
           />
         )
@@ -161,7 +165,7 @@ export default class Table extends Component {
         [SORT_DESC]: descSorter,
       }
       const sorter = sorterMap[sortOrder] 
-      const sortedData = data.sort(sorter)
+      const sortedData = [...data].sort(sorter)
       return sortedData
     }
     return data
@@ -176,14 +180,12 @@ export default class Table extends Component {
 
   filterData(data) {
     const { filterKey, filterColumn } = this.state
-    const filteredData = data.filter(record => record[filterColumn] === filterKey)
+    const filteredData = [...data].filter(record => record[filterColumn] === filterKey)
     return filteredData.length > 0 ? filteredData : data
   }
 
-  renderBody() {
-    let { data, rowSelection } = this.props
-    let tableData = this.sortData([...data])
-    tableData = this.filterData([...tableData])
+  renderBody(tableData) {
+    const { rowSelection } = this.props
     const body = tableData.map(record => {
       const selected = rowSelection && rowSelection.selectedKeys.includes(record.key)
       return <tr className={selected ? 'selected' : ''} key={record.key}>{this.renderRow(record)}</tr>
@@ -208,12 +210,47 @@ export default class Table extends Component {
     return classNames.join(' ')
   }
 
+  pagingData(data) {
+    const { pageSize, currentPage } = this.state
+    if (pageSize > 0) {
+      const pagingData = [...data].filter((record, i) => {
+        const startIndex = (currentPage - 1) * pageSize
+        const endIndex = startIndex + pageSize
+        return i < endIndex && i >= startIndex
+      })
+      return pagingData
+    }
+    return data
+  }
+
+  renderPagination({ pageSize, totalSize, currentPage }) {
+    if (pageSize > 0) {
+      return (
+        <Pagination
+          onChange={currentPage => this.setState({ currentPage })}
+          onPageSizeChange={size => this.setState({ pageSize: size })}
+          pageSize={pageSize}
+          totalSize={totalSize}
+          currentPage={currentPage} />
+      )
+    } 
+    return ''
+  }
+
   render() {
+    const { data } = this.props
+    const { pageSize, currentPage } = this.state
+    const tableData = [this.sortData, this.filterData].reduce((prev, cur) => cur.call(this, prev), data)
+    const showData = this.pagingData(tableData)
+    const totalSize = tableData.length
     return (
-      <table className={this.getTableClassName()}>
-        <thead>{this.renderHead()}</thead>
-        <tbody>{this.renderBody()}</tbody>
-      </table>
+      <div>
+        <table className={this.getTableClassName()}>
+          <thead>{this.renderHead()}</thead>
+          <tbody>{this.renderBody(showData)}</tbody>
+        </table>
+        {this.renderPagination({ pageSize, totalSize, currentPage })}
+      </div>
     )
   }
 }
