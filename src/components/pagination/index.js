@@ -134,14 +134,14 @@ export class Pagination extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { totalSize, onChange, onPageSizeChange } = this.props 
     const { currentPage, pageSize } = this.state
-    if (prevState.currentPage !== currentPage && typeof onChange === 'function') {
+    if (prevState.currentPage !== currentPage && typeof this.props.onChange === 'function') {
       onChange(currentPage)
     }
-    if (prevState.pageSize !== pageSize && typeof onPageSizeChange === 'function') {
+    if (prevState.pageSize !== pageSize && typeof this.props.onPageSizeChange === 'function') {
       onPageSizeChange(pageSize)
     }
-    if (prevProps.totalSize !== totalSize) {
-      this.setState({ pageIndex: Math.ceil(totalSize / pageSize) })
+    if (prevProps.totalSize !== totalSize || prevState.currentPage !== this.props.currentPage) {
+      this.setState({ pageIndex: Math.ceil(totalSize / pageSize), currentPage: this.props.currentPage })
     }
   }
 

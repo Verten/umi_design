@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
 import Dropdown from '../dropdown'
 import Pagination from '../pagination'
+import Loading from './TableLoading'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
@@ -35,6 +36,7 @@ export default class Table extends Component {
       filterColumn: '',
       currentPage: 1,
       pageSize: pagination.pageSize,
+      loading: false,
     }
   }
 
@@ -60,8 +62,12 @@ export default class Table extends Component {
             seletedItem={title}
             operationItem={filterOptions}
             itemChange={selectedItem => {
-              this.setState({ filterColumn: dataIndex, filterKey: selectedItem, currentPage: 1 })}
-            }
+              this.setState({
+                filterColumn: dataIndex,
+                filterKey: selectedItem,
+                currentPage: 1,
+              })
+            }}
           />
         )
       }
@@ -139,7 +145,8 @@ export default class Table extends Component {
       const { key } = col
       return {
         sortOrder: prevState.sortColumn === key ? nextSortOrder : sortOrderTypes[1],
-        sortColumn: key
+        sortColumn: key,
+        currentPage: 1,
       }
     })
   }
@@ -237,6 +244,16 @@ export default class Table extends Component {
     return ''
   }
 
+  renderLoading() {
+    const { loading } = this.state
+    if (loading) {
+      return (
+        <Loading />
+      )
+    }
+    return ''
+  }
+
   render() {
     const { data } = this.props
     const { pageSize, currentPage } = this.state
@@ -245,6 +262,7 @@ export default class Table extends Component {
     const totalSize = tableData.length
     return (
       <div>
+        {this.renderLoading()}
         <table className={this.getTableClassName()}>
           <thead>{this.renderHead()}</thead>
           <tbody>{this.renderBody(showData)}</tbody>
