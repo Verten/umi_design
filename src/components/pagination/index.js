@@ -20,7 +20,7 @@ export class Pagination extends Component {
     this.state = {
       currentPage: props.currentPage,
       pageSize: props.pageSize,
-      pageIndex: Math.round(props.totalSize / props.pageSize),
+      pageIndex: Math.ceil(props.totalSize / props.pageSize),
     }
   }
 
@@ -54,7 +54,8 @@ export class Pagination extends Component {
     const { totalSize } = this.props
     this.setState({
       currentPage: 1,
-      pageIndex: Math.round(totalSize / pageSize),
+      pageIndex: Math.ceil(totalSize / pageSize),
+      pageSize
     })
   }
 
@@ -128,6 +129,20 @@ export class Pagination extends Component {
         {elementValue}
       </li>,
     )
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { totalSize, onChange, onPageSizeChange } = this.props 
+    const { currentPage, pageSize } = this.state
+    if (prevState.currentPage !== currentPage && typeof onChange === 'function') {
+      onChange(currentPage)
+    }
+    if (prevState.pageSize !== pageSize && typeof onPageSizeChange === 'function') {
+      onPageSizeChange(pageSize)
+    }
+    if (prevProps.totalSize !== totalSize) {
+      this.setState({ pageIndex: Math.ceil(totalSize / pageSize) })
+    }
   }
 
   render() {
