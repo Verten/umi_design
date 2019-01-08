@@ -15,18 +15,55 @@ class ControlledInput extends Component {
   render() {
     return (
       <Theme>
+        <h3>default</h3>
         <Input value={this.state.val} onChange={this.changeHandler} />
+        <h3>fullwidth</h3>
+        <Input type={'fullwidth'} value={this.state.val} onChange={this.changeHandler} />
       </Theme>
     )
   }
 }
 
-storiesOf(title, module)
-  .add('default', () =>(
-    <ControlledInput />
-  ))
-  .add('textarea', () => (
+function LabelInput() {
+  const labelTop = { pos: 'left', text: 'Label' }
+  const labelLeft = { text: 'Label' }
+  return (
+    <Theme>
+      <Input label={labelTop} />
+      <Input label={labelLeft} />
+    </Theme>
+  )
+}
+
+function PrefixInput() {
+  return (
+    <Theme>
+      <Input prefix={'$'} />
+      <Input prefix="icon-search" icon="icon-search" />
+    </Theme>
+  )
+}
+
+function SuffixInput() {
+  return (
+    <Theme>
+      <Input suffix={'suffix'} />
+      <Input suffix="icon-search" icon="icon-search" />
+    </Theme>
+  )
+}
+
+function TextareaDemo() {
+  return (
     <Theme>
       <Textarea />
     </Theme>
-  ))
+  )
+}
+
+storiesOf(title, module)
+  .add('default', () => <ControlledInput />)
+  .add('input with label', () => <LabelInput />)
+  .add('input with prefix', () => <PrefixInput />)
+  .add('input with suffix', () => <SuffixInput />)
+  .add('textarea', () => <TextareaDemo />)
