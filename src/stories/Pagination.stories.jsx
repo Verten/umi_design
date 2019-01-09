@@ -16,6 +16,6 @@ storiesOf('Pagination', module)
   ))
   .add('more data 2', () => (
     <Theme>
-      <Pagination totalSize={1000} pageSize={19} />
+      <Pagination totalSize={1000} pageSize={19} defaultCurrent={1} />
     </Theme>
   ))

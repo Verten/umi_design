@@ -8,17 +8,18 @@ export class Pagination extends Component {
     totalSize: PropTypes.number.isRequired,
     pageSize: PropTypes.number,
     currentPage: PropTypes.number,
+    defaultCurrent: PropTypes.number,
   }
 
   static defaultProps = {
-    currentPage: 1,
+    defaultCurrent: 1,
     pageSize: 10,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      currentPage: props.currentPage,
+      currentPage: props.defaultCurrent,
       pageSize: props.pageSize,
       pageIndex: Math.ceil(props.totalSize / props.pageSize),
     }
@@ -29,15 +30,11 @@ export class Pagination extends Component {
     if (currentPage === 1) {
       return
     }
-    this.setState({
-      currentPage: --currentPage,
-    })
+    this.handleChange(--currentPage)
   }
 
   handleClickPageIndex = (e, index) => {
-    this.setState({
-      currentPage: index,
-    })
+    this.handleChange(index)
   }
 
   handleClickNextPage = e => {
@@ -45,13 +42,24 @@ export class Pagination extends Component {
     if (currentPage === pageIndex) {
       return
     }
-    this.setState({
-      currentPage: ++currentPage,
-    })
+    this.handleChange(++currentPage)
+  }
+
+  handleChange  = (pageIndex) => {
+    const { onChange } = this.props
+    if (typeof onChange === 'function') {
+      onChange(pageIndex)
+    }
+    if (!('currentPage' in this.props)) {
+      this.setState({ currentPage: pageIndex })
+    }
   }
 
   handleChangePageSize = pageSize => {
-    const { totalSize } = this.props
+    const { totalSize, onPageSizeChange } = this.props
+    if (typeof onPageSizeChange === 'function') {
+      onPageSizeChange(pageSize)
+    } 
     this.setState({
       currentPage: 1,
       pageIndex: Math.ceil(totalSize / pageSize),
@@ -131,18 +139,17 @@ export class Pagination extends Component {
     )
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { totalSize, onChange, onPageSizeChange } = this.props 
-    const { currentPage, pageSize } = this.state
-    if (prevState.currentPage !== currentPage && typeof this.props.onChange === 'function') {
-      onChange(currentPage)
+  static getDerivedStateFromProps(props, state) {
+    const newState = {
+      pageIndex: Math.ceil(props.totalSize / state.pageSize) 
     }
-    if (prevState.pageSize !== pageSize && typeof this.props.onPageSizeChange === 'function') {
-      onPageSizeChange(pageSize)
+    if ('pageSize' in props) {
+      newState.pageSize = props.pageSize
     }
-    if (prevProps.totalSize !== totalSize || prevState.currentPage !== this.props.currentPage) {
-      this.setState({ pageIndex: Math.ceil(totalSize / pageSize), currentPage: this.props.currentPage })
+    if ('currentPage' in props) {
+      newState.currentPage = props.currentPage
     }
+    return newState
   }
 
   render() {
@@ -156,7 +163,7 @@ export class Pagination extends Component {
         <Dropdown
           label={'Show'}
           operationName={this.props.pageSize}
-          operationItem={[10, 15, 20, 50, 100]}
+          operationItem={[5, 10, 15, 20, 50, 100]}
           itemChange={this.handleChangePageSize}
         />
       </div>
