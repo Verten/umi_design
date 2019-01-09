@@ -13,7 +13,7 @@ export default class Input extends Component {
     return ''
   }
   renderSuffix(suffix, icon) {
-    if (suffix) {
+    if ('suffix' in this.props) {
       return (
         <Fragment>
           {' '}
@@ -23,10 +23,9 @@ export default class Input extends Component {
         </Fragment>
       )
     }
-    return ''
   }
   renderPrefix(prefix, icon) {
-    if (prefix) {
+    if ('prefix' in this.props) {
       return (
         <Fragment>
           <div className={`${styles.prefix} ${ icon ? styles['icon-inside'] : '' }`}>
@@ -36,7 +35,6 @@ export default class Input extends Component {
         </Fragment>
       )
     }
-    return ''
   }
   render() {
     const {
