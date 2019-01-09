@@ -39,7 +39,7 @@ function PrefixInput() {
   return (
     <Theme>
       <Input prefix={'$'} />
-      <Input prefix="icon-search" icon="icon-search" />
+      <Input prefix icon="icon-search" />
     </Theme>
   )
 }
@@ -48,7 +48,7 @@ function SuffixInput() {
   return (
     <Theme>
       <Input suffix={'suffix'} />
-      <Input suffix="icon-search" icon="icon-search" />
+      <Input suffix icon="icon-search" />
     </Theme>
   )
 }
