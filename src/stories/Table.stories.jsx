@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react'
 import Theme from '../components/theme'
 import Table from '../components/table'
 import Button from '../components/button'
+import Input from '../components/text-field/Input'
+import { debounce } from 'lodash'
 
 const mockColumns = [
   { key: 1, dataIndex: 'name', title: 'name' },
@@ -127,8 +129,16 @@ const pagingData = [
 ]
 class CustomizeTable extends Component {
   state = {
-    selectedKeys: []
+    selectedKeys: [],
+    searchKey: '',
   }
+  handleSearch = (e) => {
+    e.persist()
+    this.delaySearch(e.target.value)
+  }
+  delaySearch = debounce((searchKey) => {
+    this.setState({ searchKey })
+  }, 500)
   render() {
     const filterableTableColumns = [
       { key: 1, dataIndex: 'name', title: 'name', sortable: true },
@@ -150,8 +160,11 @@ class CustomizeTable extends Component {
     }
     return (
       <Theme>
+        <div style={{ marginRight: '4px', float: 'right', whiteSpace: 'nowrap' }}>
+          <Input suffix="icon-search" icon="icon-search" onChange={this.handleSearch} />
+        </div>
         <Table
-          searchable={true}
+          searchKey={this.state.searchKey}
           pagination={{pageSize: 4}}
           columns={filterableTableColumns}
           data={pagingData}
