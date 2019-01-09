@@ -4,8 +4,6 @@ import Checkbox from '../checkbox'
 import Dropdown from '../dropdown'
 import Pagination from '../pagination'
 import Loading from './TableLoading'
-import Input from '../text-field/Input'
-import { debounce } from 'lodash'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
@@ -21,13 +19,14 @@ export default class Table extends Component {
     data: PropTypes.array,
     columns: PropTypes.array,
     rowSelection: PropTypes.object,
+    searchKey: PropTypes.string,
   }
 
   static defaultProps = {
     data: [],
     columns: [],
   }
-  
+
   constructor(props) {
     super(props)
     const { pagination = { pageSize: 0 } } = this.props
@@ -268,30 +267,16 @@ export default class Table extends Component {
     return searchResult.length > 0 ? searchResult : data
   }
 
-  handleSearch = (e) => {
-    e.persist()
-    this.debounceSearch(e.target.value)
-  }
-
-  debounceSearch = debounce(searchText => {
-    this.setState({
-      searchKey: searchText,
-      sortOrder: SORT_DEFUALT,
-      sortColumn: '',
-      filterKey: '',
-      filterColumn: '',
-      currentPage: 1,
-    })
-  }, 500)
-
-  renderSearchInput() {
-    const { searchable } = this.props
-    if (searchable) {
-      return (
-        <div style={{ float: 'right', 'white-space': 'nowrap', 'margin-right': '4px' }}>
-          <Input suffix="icon-search" icon="icon-search" onChange={this.handleSearch} />
-        </div>
-      )
+  componentDidUpdate(preProps, preState) {
+    if (this.props.searchKey !== preProps.searchKey) {
+      this.setState({
+        searchKey: this.props.searchKey,
+        sortOrder: SORT_DEFUALT,
+        sortColumn: '',
+        filterKey: '',
+        filterColumn: '',
+        currentPage: 1,
+      })
     }
   }
 
@@ -305,7 +290,6 @@ export default class Table extends Component {
     return (
       <div>
         {this.renderLoading()}
-        {this.renderSearchInput()}
         <table className={this.getTableClassName()}>
           <thead>{this.renderHead()}</thead>
           <tbody>{this.renderBody(showData)}</tbody>
