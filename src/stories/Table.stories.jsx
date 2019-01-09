@@ -151,6 +151,7 @@ class CustomizeTable extends Component {
     return (
       <Theme>
         <Table
+          searchable={true}
           pagination={{pageSize: 4}}
           columns={filterableTableColumns}
           data={pagingData}

@@ -4,6 +4,8 @@ import Checkbox from '../checkbox'
 import Dropdown from '../dropdown'
 import Pagination from '../pagination'
 import Loading from './TableLoading'
+import Input from '../text-field/Input'
+import { debounce } from 'lodash'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
@@ -37,6 +39,7 @@ export default class Table extends Component {
       currentPage: 1,
       pageSize: pagination.pageSize,
       loading: false,
+      searchKey: ''
     }
   }
 
@@ -66,6 +69,7 @@ export default class Table extends Component {
                 filterColumn: dataIndex,
                 filterKey: selectedItem,
                 currentPage: 1,
+                searchKey: '',
               })
             }}
           />
@@ -240,8 +244,7 @@ export default class Table extends Component {
           totalSize={totalSize}
           currentPage={currentPage} />
       )
-    } 
-    return ''
+    }
   }
 
   renderLoading() {
@@ -251,18 +254,58 @@ export default class Table extends Component {
         <Loading />
       )
     }
-    return ''
+  }
+
+  searchData(data) {
+    const { searchKey } = this.state
+    const searchResult = data.filter((record) => {
+      return Object.keys(record).filter(key => key !== 'key').some((key => {
+        const searchValue = record[key]
+        const searched = searchValue.toString && searchValue.toString().indexOf(searchKey) > -1
+        return searched
+      }))
+    })
+    return searchResult.length > 0 ? searchResult : data
+  }
+
+  handleSearch = (e) => {
+    e.persist()
+    this.debounceSearch(e.target.value)
+  }
+
+  debounceSearch = debounce(searchText => {
+    this.setState({
+      searchKey: searchText,
+      sortOrder: SORT_DEFUALT,
+      sortColumn: '',
+      filterKey: '',
+      filterColumn: '',
+      currentPage: 1,
+    })
+  }, 500)
+
+  renderSearchInput() {
+    const { searchable } = this.props
+    if (searchable) {
+      return (
+        <div style={{ float: 'right', 'white-space': 'nowrap', 'margin-right': '4px' }}>
+          <Input suffix="icon-search" icon="icon-search" onChange={this.handleSearch} />
+        </div>
+      )
+    }
   }
 
   render() {
     const { data } = this.props
     const { pageSize, currentPage } = this.state
-    const tableData = [this.sortData, this.filterData].reduce((prev, cur) => cur.call(this, prev), data)
+    const dataHandlers = [this.sortData, this.filterData, this.searchData]
+    const tableData = dataHandlers.reduce((prev, cur) => cur.call(this, prev), data)
     const showData = this.pagingData(tableData)
     const totalSize = tableData.length
     return (
       <div>
         {this.renderLoading()}
+        {this.renderSearchInput()}
         <table className={this.getTableClassName()}>
           <thead>{this.renderHead()}</thead>
           <tbody>{this.renderBody(showData)}</tbody>
