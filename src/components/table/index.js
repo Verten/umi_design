@@ -233,12 +233,20 @@ export default class Table extends Component {
     return data
   }
 
+  handlePageSizeChange = (pageSize) => {
+    this.setState({ pageSize, currentPage: 1 })
+  }
+
+  handlePageChange = (currentPage) => {
+    this.setState({ currentPage })
+  }
+
   renderPagination({ pageSize, totalSize, currentPage }) {
     if (pageSize > 0) {
       return (
         <Pagination
-          onChange={currentPage => this.setState({ currentPage })}
-          onPageSizeChange={size => this.setState({ pageSize: size })}
+          onChange={this.handlePageChange}
+          onPageSizeChange={this.handlePageSizeChange}
           pageSize={pageSize}
           totalSize={totalSize}
           currentPage={currentPage} />
