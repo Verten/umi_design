@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Dropdown from '../dropdown'
+import Input from '../text-field/Input'
 import styles from './styles/styles.less'
 
 export class Pagination extends Component {
@@ -9,6 +10,9 @@ export class Pagination extends Component {
     pageSize: PropTypes.number,
     currentPage: PropTypes.number,
     defaultCurrent: PropTypes.number,
+    showQuickJumper: PropTypes.bool,
+    showSizeChanger: PropTypes.bool,
+    showTotal: PropTypes.func,
   }
 
   static defaultProps = {
@@ -22,6 +26,7 @@ export class Pagination extends Component {
       currentPage: props.defaultCurrent,
       pageSize: props.pageSize,
       pageIndex: Math.ceil(props.totalSize / props.pageSize),
+      quickJumperValue: ''
     }
   }
 
@@ -45,13 +50,23 @@ export class Pagination extends Component {
     this.handleChange(++currentPage)
   }
 
-  handleChange  = (pageIndex) => {
+  handleChange  = (nextPage) => {
+    if (isNaN(nextPage)) {
+      return
+    }
     const { onChange } = this.props
+    const { pageIndex } = this.state
+    if (nextPage < 1) {
+      nextPage = 1
+    }
+    if (nextPage > pageIndex) {
+      nextPage = pageIndex
+    }
     if (typeof onChange === 'function') {
-      onChange(pageIndex)
+      onChange(nextPage)
     }
     if (!('currentPage' in this.props)) {
-      this.setState({ currentPage: pageIndex })
+      this.setState({ currentPage: nextPage })
     }
   }
 
@@ -61,9 +76,9 @@ export class Pagination extends Component {
       onPageSizeChange(pageSize)
     } 
     this.setState({
+      pageSize: pageSize,
       currentPage: 1,
       pageIndex: Math.ceil(totalSize / pageSize),
-      pageSize
     })
   }
 
@@ -139,12 +154,61 @@ export class Pagination extends Component {
     )
   }
 
+  handleQuickJumperEnter = (e) => {
+    this.handleChange(+e.target.value)
+    this.setState({ quickJumperValue: '' })
+  }
+
+  handleQuickJumperChange = (e) => {
+    this.setState({ quickJumperValue: e.target.value })
+  }
+
+  renderQuickJumper() {
+    const { showQuickJumper } = this.props
+    const { quickJumperValue } = this.state
+    if (showQuickJumper) {
+      return (
+        <span>
+          <Input
+            value={quickJumperValue}
+            label={{ text: 'Go to ', pos: 'left' }}
+            onChange={this.handleQuickJumperChange}
+            onEnter={this.handleQuickJumperEnter} />
+        </span>
+      )
+    }
+  }
+
+  renderSizeChanger() {
+    const { showSizeChanger } = this.props
+    if (showSizeChanger) {
+      return (
+        <Dropdown
+          label={'Show'}
+          operationName={this.props.pageSize}
+          operationItem={[5, 10, 15, 20, 50, 100]}
+          itemChange={this.handleChangePageSize}
+        />
+      )
+    }
+  }
+
+  renderTotal() {
+    const { showTotal, totalSize } = this.props
+    if (typeof showTotal === 'function') {
+      return (
+        <span className="total">
+          {showTotal(totalSize)}
+          <span>|</span>
+        </span>
+      )
+    }
+  }
+
+  
   static getDerivedStateFromProps(props, state) {
     const newState = {
       pageIndex: Math.ceil(props.totalSize / state.pageSize) 
-    }
-    if ('pageSize' in props) {
-      newState.pageSize = props.pageSize
     }
     if ('currentPage' in props) {
       newState.currentPage = props.currentPage
@@ -160,12 +224,9 @@ export class Pagination extends Component {
           {this.renderPageIndex()}
           {this.renderNextButton()}
         </ul>
-        <Dropdown
-          label={'Show'}
-          operationName={this.props.pageSize}
-          operationItem={[5, 10, 15, 20, 50, 100]}
-          itemChange={this.handleChangePageSize}
-        />
+        {this.renderTotal()}
+        {this.renderSizeChanger()}
+        {this.renderQuickJumper()}
       </div>
     )
   }

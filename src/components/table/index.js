@@ -8,6 +8,7 @@ import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
 const TABLE_DROPDOWN_KEY = 'eds-table-dropdown'
+const TABLE_CLASSNAME = 'eds-table'
 const SORT_ASC = styles.asc
 const SORT_DESC = styles.desc
 const SORT_DEFUALT = styles['is-sortable']
@@ -20,11 +21,13 @@ export default class Table extends Component {
     columns: PropTypes.array,
     rowSelection: PropTypes.object,
     searchKey: PropTypes.string,
+    pagination: PropTypes.object,
   }
 
   static defaultProps = {
     data: [],
     columns: [],
+    pagination: {},
   }
 
   constructor(props) {
@@ -241,10 +244,14 @@ export default class Table extends Component {
     this.setState({ currentPage })
   }
 
-  renderPagination({ pageSize, totalSize, currentPage }) {
+  renderPagination(settings) {
+    const { pageSize, totalSize, currentPage, showTotal, showQuickJumper, showSizeChanger } = settings
     if (pageSize > 0) {
       return (
         <Pagination
+          showQuickJumper={showQuickJumper}
+          showSizeChanger={showSizeChanger}
+          showTotal={showTotal}
           onChange={this.handlePageChange}
           onPageSizeChange={this.handlePageSizeChange}
           pageSize={pageSize}
@@ -289,20 +296,21 @@ export default class Table extends Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, pagination } = this.props
     const { pageSize, currentPage } = this.state
     const dataHandlers = [this.sortData, this.filterData, this.searchData]
     const tableData = dataHandlers.reduce((prev, cur) => cur.call(this, prev), data)
     const showData = this.pagingData(tableData)
     const totalSize = tableData.length
+    const paginationSettings = Object.assign({}, pagination, { pageSize, totalSize, currentPage })
     return (
-      <div>
+      <div className={TABLE_CLASSNAME}>
         {this.renderLoading()}
         <table className={this.getTableClassName()}>
           <thead>{this.renderHead()}</thead>
           <tbody>{this.renderBody(showData)}</tbody>
         </table>
-        {this.renderPagination({ pageSize, totalSize, currentPage })}
+        {this.renderPagination(paginationSettings)}
       </div>
     )
   }
