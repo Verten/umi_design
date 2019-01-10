@@ -19,7 +19,7 @@ class ControlledInput extends Component {
         <h3>default</h3>
         <Input value={this.state.val} onChange={this.changeHandler} />
         <h3>fullwidth</h3>
-        <Input type={'fullwidth'} value={this.state.val} onChange={this.changeHandler} />
+        <Input inputType={'fullwidth'} value={this.state.val} onChange={this.changeHandler} />
       </Theme>
     )
   }

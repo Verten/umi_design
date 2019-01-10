@@ -45,7 +45,7 @@ export default class Input extends Component {
   }
   render() {
     const {
-      prefix, suffix, label, icon, type = '',
+      prefix, suffix, label, icon, inputType = '', onEnter,
       id = `eds-input-${uniqueId()}`,
       ...inputProps
     } = this.props
@@ -56,7 +56,7 @@ export default class Input extends Component {
         <input
           {...inputProps}
           id={id}
-          className={`${type} ${icon ? styles['with-icon'] : ''}`}
+          className={`${inputType} ${icon ? styles['with-icon'] : ''}`}
           onKeyUp={this.handleKeyUp}
         />
         {this.renderSuffix(suffix, icon)}

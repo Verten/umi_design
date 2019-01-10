@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import Theme from '../components/theme'
 import Table from '../components/table'
-import Button from '../components/button'
 import Input from '../components/text-field/Input'
-import { debounce } from 'lodash'
 
 const mockColumns = [
   { key: 1, dataIndex: 'name', title: 'name' },
@@ -14,7 +13,10 @@ const mockColumns = [
   {
     key: 5, dataIndex: 'action', title: 'action',
     render: (text, record) => (
-      <Button onClick={() => alert(record.name)}>show name</Button>
+      <a onClick={e => {
+        e.preventDefault()
+        action(record.name)(e)
+      }}>click me</a>
     )
   },
 ]
@@ -26,64 +28,7 @@ const mockData = [
   { key: 4, name: 'cat', age: 11, address: 'newyork', country: 'USA' },
   { key: 5, name: 'jack', age: 24, address: 'shenzhen', country: 'china' },
 ]
-class SelectedTable extends Component {
-  state = {
-    selectedKeys: [1, 2]
-  }
-  render() {
-    const rowSelection = {
-      selectedKeys: this.state.selectedKeys,
-      onChange: (selectedKeys) => {
-        this.setState({ selectedKeys })
-      }
-    }
-    return (
-      <Theme>
-        <Table data={mockData} columns={mockColumns} rowSelection={rowSelection} />
-      </Theme>
-    )
-  }
-}
 
-function SortableTable() {
-  const sortableTableColumns = [
-    { key: 1, dataIndex: 'name', title: 'name', sortable: true },
-    { key: 2, dataIndex: 'age', title: 'age', sortable: true },
-    { key: 3, dataIndex: 'address', title: 'address' },
-    { key: 4, dataIndex: 'country', title: 'country' },
-    {
-      key: 5, dataIndex: 'action', title: 'action',
-      render: (text, record) => (
-        <Button onClick={() => alert(record.name)}>show name</Button>
-      )
-    },
-  ]
-  return (
-    <Theme>
-      <Table columns={sortableTableColumns} data={mockData} />
-    </Theme>
-  )
-}
-
-function FilterableTable()  {
-  const filterableTableColumns = [
-    { key: 1, dataIndex: 'name', title: 'name', },
-    { key: 2, dataIndex: 'age', title: 'age', },
-    { key: 3, dataIndex: 'address', title: 'address' },
-    { key: 4, dataIndex: 'country', title: 'country', filterable: true },
-    {
-      key: 5, dataIndex: 'action', title: 'action',
-      render: (text, record) => (
-        <Button onClick={() => alert(record.name)}>show name</Button>
-      )
-    },
-  ]
-  return (
-    <Theme>
-      <Table columns={filterableTableColumns} data={mockData} />
-    </Theme>
-  )
-}
 
 const pagingData = [
   { key: 1, name: 'ben', age: 41, address: 'guangdong', country: 'china' },
@@ -127,6 +72,79 @@ const pagingData = [
   { key: 74, name: 'cat', age: 11, address: 'newyork', country: 'USA' },
   { key: 75, name: 'jack', age: 24, address: 'shenzhen', country: 'china' },
 ]
+class SelectTable extends Component {
+  state = {
+    selectedKeys: [1, 2]
+  }
+  render() {
+    const rowSelection = {
+      selectedKeys: this.state.selectedKeys,
+      onChange: (selectedKeys) => {
+        this.setState({ selectedKeys })
+      }
+    }
+    return (
+      <Theme>
+        <Table data={mockData} columns={mockColumns} rowSelection={rowSelection} />
+      </Theme>
+    )
+  }
+}
+
+function SortableTable() {
+  const sortableTableColumns = [
+    { key: 1, dataIndex: 'name', title: 'name', sortable: true },
+    { key: 2, dataIndex: 'age', title: 'age', sortable: true },
+    { key: 3, dataIndex: 'address', title: 'address' },
+    { key: 4, dataIndex: 'country', title: 'country' },
+    {
+      key: 5, dataIndex: 'action', title: 'action',
+      render: (text, record) => (
+        <a onClick={e => {
+          e.preventDefault()
+          action(record.name)(e)
+        }}>click me</a>
+      )
+    },
+  ]
+  return (
+    <Theme>
+      <Table columns={sortableTableColumns} data={mockData} />
+    </Theme>
+  )
+}
+
+function FilterableTable()  {
+  const filterableTableColumns = [
+    { key: 1, dataIndex: 'name', title: 'name', },
+    { key: 2, dataIndex: 'age', title: 'age', },
+    { key: 3, dataIndex: 'address', title: 'address' },
+    { key: 4, dataIndex: 'country', title: 'country', filterable: true },
+    {
+      key: 5, dataIndex: 'action', title: 'action',
+      render: (text, record) => (
+        <a onClick={e => {
+          e.preventDefault()
+          action(record.name)(e)
+        }}>click me</a>
+      )
+    },
+  ]
+  return (
+    <Theme>
+      <Table columns={filterableTableColumns} data={mockData} />
+    </Theme>
+  )
+}
+
+
+const pagination = {
+  pageSize: 4,
+  totalSize: pagingData.length,
+  showQuickJumper: true,
+  showSizeChanger: true,
+  showTotal: (total) => `Total: ${total} resources`,
+}
 class CustomizeTable extends Component {
   state = {
     selectedKeys: [],
@@ -141,7 +159,10 @@ class CustomizeTable extends Component {
       {
         key: 5, dataIndex: 'action', title: 'action',
         render: (text, record) => (
-          <Button onClick={() => alert(record.name)}>show name</Button>
+          <a onClick={e => {
+            e.preventDefault()
+            action(record.name)(e)
+          }}>click me</a>
         )
       },
     ]
@@ -162,7 +183,7 @@ class CustomizeTable extends Component {
         </div>
         <Table
           searchKey={this.state.searchKey}
-          pagination={{pageSize: 4}}
+          pagination={pagination}
           columns={filterableTableColumns}
           data={pagingData}
           rowSelection={rowSelection} />
@@ -180,19 +201,44 @@ function PagingTable() {
     {
       key: 5, dataIndex: 'action', title: 'action',
       render: (text, record) => (
-        <Button onClick={() => alert(record.name)}>show name</Button>
+        <a onClick={e => {
+          e.preventDefault()
+          action(record.name)(e)
+        }}>click me</a>
       )
     },
   ]
- 
+
   return (
     <Theme>
       <Table
         columns={pagingTableColumns}
-        pagination={{pageSize: 4, totalSize: pagingData.length}}
+        pagination={pagination}
         data={pagingData} />
     </Theme>
   )
+}
+
+class SearchableTable extends Component {
+  state = { searchKey: '' }
+
+  render() {
+    return (
+      <Theme>
+        <div style={{ marginRight: '4px', float: 'right', whiteSpace: 'nowrap' }}>
+          <Input
+            suffix="icon-search"
+            icon="icon-search"
+            onEnter={(e) => this.setState({ searchKey: e.target.value })}
+          />
+        </div>
+        <Table
+          searchKey={this.state.searchKey}
+          columns={mockColumns}
+          data={mockData} />
+      </Theme>
+    )
+  }
 }
 
 //compact, tiny, dashed, striped
@@ -222,9 +268,10 @@ storiesOf('Table', module)
       <Table type="striped" data={mockData} columns={mockColumns} />
     </Theme>
   ))
-  .add('selectable table', () => <SelectedTable />)
+  .add('selectable table', () => <SelectTable />)
   .add('sortable table', () => <SortableTable />)
   .add('filterable table', () => <FilterableTable />)
+  .add('searchable table', () => <SearchableTable />)
   .add('paging table', () => <PagingTable />)
   .add('customize table', () => <CustomizeTable />)
 
