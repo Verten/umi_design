@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styles from './styles/styles.less'
 import { uniqueId } from 'lodash'
 
+const KEYCODE_ENTER = 13
 export default class Input extends Component {
   renderLabel(label, id) {
     if (label) {
@@ -36,6 +37,12 @@ export default class Input extends Component {
       )
     }
   }
+  handleKeyUp = (e) => {
+    const { onEnter } = this.props
+    if (e.keyCode === KEYCODE_ENTER && typeof onEnter === 'function') {
+      this.props.onEnter(e)
+    }
+  }
   render() {
     const {
       prefix, suffix, label, icon, type = '',
@@ -48,8 +55,10 @@ export default class Input extends Component {
         {this.renderPrefix(prefix, icon)}
         <input
           {...inputProps}
+          id={id}
           className={`${type} ${icon ? styles['with-icon'] : ''}`}
-          id={id} />
+          onKeyUp={this.handleKeyUp}
+        />
         {this.renderSuffix(suffix, icon)}
       </Fragment>
     )

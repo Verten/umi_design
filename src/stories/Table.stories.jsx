@@ -132,13 +132,6 @@ class CustomizeTable extends Component {
     selectedKeys: [],
     searchKey: '',
   }
-  handleSearch = (e) => {
-    e.persist()
-    this.delaySearch(e.target.value)
-  }
-  delaySearch = debounce((searchKey) => {
-    this.setState({ searchKey })
-  }, 500)
   render() {
     const filterableTableColumns = [
       { key: 1, dataIndex: 'name', title: 'name', sortable: true },
@@ -161,7 +154,11 @@ class CustomizeTable extends Component {
     return (
       <Theme>
         <div style={{ marginRight: '4px', float: 'right', whiteSpace: 'nowrap' }}>
-          <Input suffix="icon-search" icon="icon-search" onChange={this.handleSearch} />
+          <Input
+            suffix="icon-search"
+            icon="icon-search"
+            onEnter={(e) => this.setState({ searchKey: e.target.value })}
+          />
         </div>
         <Table
           searchKey={this.state.searchKey}

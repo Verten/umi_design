@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import Input from '../components/text-field/Input'
 import Textarea from '../components/text-field/Textarea'
 import Theme from '../components/theme'
@@ -61,9 +62,16 @@ function TextareaDemo() {
   )
 }
 
+function InputEnter() {
+  return (
+    <Input onEnter={action('enter')} />
+  )
+}
+
 storiesOf(title, module)
   .add('default', () => <ControlledInput />)
   .add('input with label', () => <LabelInput />)
   .add('input with prefix', () => <PrefixInput />)
   .add('input with suffix', () => <SuffixInput />)
+  .add('input enter', () => <InputEnter />)
   .add('textarea', () => <TextareaDemo />)
