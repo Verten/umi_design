@@ -174,12 +174,14 @@ class CustomizeTable extends Component {
     }
     return (
       <Theme>
-        <div style={{ marginRight: '4px', float: 'right', whiteSpace: 'nowrap' }}>
-          <Input
-            suffix="icon-search"
-            icon="icon-search"
-            onEnter={(e) => this.setState({ searchKey: e.target.value })}
-          />
+        <div style={{ overflow: 'hidden' }}>
+          <span style={{ float: 'right', paddingRight: '4px', whiteSpace: 'nowrap' }}>
+            <Input
+              suffix="icon-search"
+              icon="icon-search"
+              onEnter={(e) => this.setState({ searchKey: e.target.value })}
+            />
+          </span>
         </div>
         <Table
           searchKey={this.state.searchKey}
@@ -225,12 +227,14 @@ class SearchableTable extends Component {
   render() {
     return (
       <Theme>
-        <div style={{ marginRight: '4px', float: 'right', whiteSpace: 'nowrap' }}>
-          <Input
-            suffix="icon-search"
-            icon="icon-search"
-            onEnter={(e) => this.setState({ searchKey: e.target.value })}
-          />
+        <div style={{ overflow: 'hidden' }}>
+          <span style={{ float: 'right', paddingRight: '4px', whiteSpace: 'nowrap' }}>
+            <Input
+              suffix="icon-search"
+              icon="icon-search"
+              onEnter={(e) => this.setState({ searchKey: e.target.value })}
+            />
+          </span>
         </div>
         <Table
           searchKey={this.state.searchKey}
