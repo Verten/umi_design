@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
 import Dropdown from '../dropdown'
 import Pagination from '../pagination'
-import Loading from './TableLoading'
+import Loading from '../loading'
 import styles from './styles/styles.less'
 
 const TABLE_CHECKBOX_KEY = 'eds-table-checkbox'
 const TABLE_DROPDOWN_KEY = 'eds-table-dropdown'
 const TABLE_CLASSNAME = 'eds-table'
+const TABLE_LOADING_CLASSNAME = 'eds-table-loading'
 const SORT_ASC = styles.asc
 const SORT_DESC = styles.desc
 const SORT_DEFUALT = styles['is-sortable']
@@ -22,12 +23,14 @@ export default class Table extends Component {
     rowSelection: PropTypes.object,
     searchKey: PropTypes.string,
     pagination: PropTypes.object,
+    loading: PropTypes.bool,
   }
 
   static defaultProps = {
     data: [],
     columns: [],
     pagination: {},
+    loading: false,
   }
 
   constructor(props) {
@@ -40,7 +43,6 @@ export default class Table extends Component {
       filterColumn: '',
       currentPage: 1,
       pageSize: pagination.pageSize,
-      loading: false,
       searchKey: ''
     }
   }
@@ -262,12 +264,13 @@ export default class Table extends Component {
   }
 
   renderLoading() {
-    const { loading } = this.state
-    if (loading) {
-      return (
+    const { loading } = this.props
+    const hidden = loading ? '' : 'hidden'
+    return (
+      <div className={`${TABLE_LOADING_CLASSNAME} ${hidden}`}>
         <Loading />
-      )
-    }
+      </div>
+    )
   }
 
   searchData(data) {
