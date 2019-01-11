@@ -3,9 +3,9 @@ import auth from '../../auth/web-auth/auth'
 
 export default class Auth {
   auth = new auth({
-    domain: 'localhost:27161/selfcare/v1', // test authorize endpoint by nodejs
+    domain: 'localhost:3000', // test authorize endpoint by nodejs
     clientID: 'IWSAPP',
-    redirectUri: 'https://localhost:3000/token',
+    redirectUri: 'http://localhost:8000/demo/callback',
     responseType: 'code',
     scope: 'openid',
   })

@@ -16,14 +16,17 @@ export class LandingPage extends Component {
   }
 
   handleLogin(state) {
-    const { auth } = this.props
-    const encodeState = btoa(
-      JSON.stringify({
-        usePostMessage: false,
-        date: new Date(),
-        path: 'home',
-      }),
-    )
+    const { auth, location } = this.props
+    const to = location.query.to
+    const defaultState = {
+      usePostMessage: false,
+      date: new Date(),
+      path: 'home',
+    }
+    if (to) {
+      Object.assign(defaultState, { path: to })
+    }
+    const encodeState = btoa(JSON.stringify(defaultState))
     return () => {
       auth.login({ state: encodeState, nonce: auth.randomString() })
     }
