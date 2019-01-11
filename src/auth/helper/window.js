@@ -1,11 +1,11 @@
 import objectHelper from './object'
 
 function redirect(url) {
-  getWindow().location = url
+  window.location = url
 }
 
 function getDocument() {
-  return getWindow().document
+  return window.document
 }
 
 export function getWindow() {
@@ -13,7 +13,7 @@ export function getWindow() {
 }
 
 function getOrigin() {
-  var location = getWindow().location
+  var location = window.location
   var origin = location.origin
 
   if (!origin) {
@@ -25,6 +25,7 @@ function getOrigin() {
 
 export default {
   redirect: redirect,
+  getWindow: getWindow,
   getDocument: getDocument,
   getOrigin: getOrigin,
 }

@@ -7,7 +7,7 @@ export default class Auth {
     clientID: 'IWSAPP',
     redirectUri: 'http://localhost:8000/demo/callback',
     responseType: 'code',
-    scope: 'openid',
+    scope: 'openid provisioning',
   })
 
   keyLength = 32

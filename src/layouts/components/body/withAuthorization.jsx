@@ -1,10 +1,19 @@
 import { Component } from 'react'
 import { connect } from 'dva'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import Loading from '../../../components/loading'
 import Button from '../../../components/button'
 
+import { fetchUserInfo } from '../../../models/app'
+
 function withAuthorization(WrappedComponent) {
   class AuthorizationComponent extends Component {
+    static propTypes = {
+      auth: PropTypes.object,
+      actions: PropTypes.object,
+    }
+
     constructor(props) {
       super(props)
       this.state = {
@@ -21,6 +30,7 @@ function withAuthorization(WrappedComponent) {
       }
       const encodeState = btoa(JSON.stringify(defaultState))
       auth.checkSession({ state: encodeState, nonce: auth.randomString() }, this.handleAuthorization)
+      // todo: connect with session management
     }
 
     handleAuthorization = (error, result) => {
@@ -34,6 +44,9 @@ function withAuthorization(WrappedComponent) {
           isAuthorized: true,
           isProcessing: false,
         })
+        // start API request to fetch user info and permission
+        this.props.actions.fetchUserInfo()
+        // todo: fetch user permissions
       }
     }
 
@@ -65,13 +78,22 @@ function withAuthorization(WrappedComponent) {
       )
     }
   }
-  return connect(mapStateToProps)(AuthorizationComponent)
+  return connect(
+    mapStateToProps,
+    mapDispatch,
+  )(AuthorizationComponent)
 }
 
 function mapStateToProps(state) {
   const { auth } = state.app
   return {
     auth,
+  }
+}
+
+function mapDispatch(dispatch) {
+  return {
+    actions: bindActionCreators({ fetchUserInfo }, dispatch),
   }
 }
 

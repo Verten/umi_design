@@ -1,4 +1,3 @@
-import windowHandler from '../window'
 import DummyStorage from './dummy'
 import CookieStorage from './cookie'
 import Warn from '../warn'
@@ -12,7 +11,7 @@ function StorageHandler(options) {
   try {
     // some browsers throw an error when trying to access localStorage
     // when localStorage is disabled.
-    let localStorage = windowHandler.getWindow().localStorage
+    let localStorage = window.localStorage
     if (localStorage) {
       this.storage = localStorage
     }

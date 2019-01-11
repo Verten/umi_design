@@ -1,5 +1,3 @@
-import { getWindow } from './window'
-
 function IframeHandler(options) {
   this.url = options.url
   this.message = options.message
@@ -27,7 +25,7 @@ function IframeHandler(options) {
 
 IframeHandler.prototype.init = function() {
   let _this = this
-  let _window = getWindow()
+  let _window = window
 
   this.iframe = _window.document.createElement('iframe')
   this.iframe.style.display = 'none'

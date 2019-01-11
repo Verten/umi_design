@@ -1,6 +1,6 @@
 import IframeHandler from '../helper/iframe-handler'
 import objectHelper from '../helper/object'
-import windowHelper, { getWindow } from '../helper/window'
+import windowHelper from '../helper/window'
 import random from '../helper/random'
 import Warn from '../helper/warn'
 
@@ -105,7 +105,7 @@ function checkAuthorizeCallback(options, obj, cb) {
       let parsedHash = eventData.event.data.response
       return obj.webAuth.validateAuthenticationResponse(options, parsedHash, cb)
     }
-    if (error.error === 'consent_required' && getWindow().location.hostname === 'localhost') {
+    if (error.error === 'consent_required' && window.location.hostname === 'localhost') {
       obj.warn.warning("Consent Required. Consent can't be skipped on localhost.")
     }
     obj.webAuth.transactionManager.clearTransaction(error.state)
