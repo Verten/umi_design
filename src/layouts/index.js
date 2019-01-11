@@ -9,10 +9,10 @@ import Body from './components/body'
 function BasicLayout(props) {
   if (props.location.pathname === '/' || props.location.pathname === '/callback') {
     return (
-      <Fragment>
+      <Theme>
         <Header />
         <div>{props.children}</div>
-      </Fragment>
+      </Theme>
     )
   }
   return (
