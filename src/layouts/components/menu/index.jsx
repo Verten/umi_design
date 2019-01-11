@@ -4,28 +4,34 @@ import Tree from '../../../components/tree'
 
 const trees = [
   {
-    name: 'Menu1',
-    path: '/',
+    name: 'Configure',
+    path: '',
+    tree: [{ name: 'Resources', path: '/resources' }, { name: 'Permissions', path: '/permissions' }],
   },
   {
-    name: 'Menu2',
-    path: '/home',
-  },
-  {
-    name: 'Menu3',
+    name: 'Manage',
     path: '',
     tree: [
-      { name: 'SubMenu3-1', path: '#-1' },
-      { name: 'SubMenu3-2', path: '#-2' },
-      { name: 'SubMenu3-3', path: '#-3' },
-      { name: 'SubMenu3-4', path: '#-4' },
-      {
-        name: 'SubMenu3-5',
-        path: '#-5',
-        tree: [{ name: 'SubMenu3-1-1', path: '#-1-1' }, { name: 'SubMenu3-1-2', path: '#-1-2' }],
-      },
+      { name: 'Roles', path: '/roles' },
+      { name: 'Organizations', path: '/organizations' },
+      { name: 'Users', path: '/users' },
     ],
   },
+  // {
+  //   name: 'Menu3',
+  //   path: '',
+  //   tree: [
+  //     { name: 'SubMenu3-1', path: '#-1' },
+  //     { name: 'SubMenu3-2', path: '#-2' },
+  //     { name: 'SubMenu3-3', path: '#-3' },
+  //     { name: 'SubMenu3-4', path: '#-4' },
+  //     {
+  //       name: 'SubMenu3-5',
+  //       path: '#-5',
+  //       tree: [{ name: 'SubMenu3-1-1', path: '#-1-1' }, { name: 'SubMenu3-1-2', path: '#-1-2' }],
+  //     },
+  //   ],
+  // },
 ]
 
 export class Menu extends Component {

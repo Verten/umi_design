@@ -65,12 +65,14 @@ IframeHandler.prototype.init = function() {
 
 IframeHandler.prototype.postMessage = function(messageObj) {
   const _this = this
-  return () => {
+  return function() {
     const { message, targetUrl } = messageObj
     if (message) {
-      setTimeout(() => {
-        console.info('start post message with -> ', message)
-        _this.iframe.contentWindow.postMessage(message, targetUrl)
+      setTimeout(function() {
+        if (_this.iframe.contentWindow) {
+          console.info('start post message with -> ', message)
+          _this.iframe.contentWindow.postMessage(message, targetUrl)
+        }
       }, 5000)
     } else {
       console.info('No message should post.')

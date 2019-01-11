@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'dva'
 import styles from './index.less'
 
 export class Header extends Component {
-  static propTypes = {}
+  static propTypes = {
+    signInFunc: PropTypes.func,
+    userInfo: PropTypes.object,
+  }
+
+  handleLogout = () => {
+    this.props.auth.logout({
+      postLogoutRedirectUri: 'https://localhost:3000/logout',
+      idTokenHint: localStorage.getItem('id_token'),
+    })
+  }
 
   render() {
     return (
@@ -20,7 +32,7 @@ export class Header extends Component {
             <a>Username</a>
           </div>
           <div className={`${styles.item} ${styles.hover} settings-trigger`}>
-            <span>Sign Out</span>
+            <span onClick={this.handleLogout}>Sign Out</span>
           </div>
         </div>
       </header>
@@ -28,4 +40,11 @@ export class Header extends Component {
   }
 }
 
-export default Header
+function mapStateToProps(state) {
+  const { auth } = state.app
+  return {
+    auth,
+  }
+}
+
+export default connect(mapStateToProps)(Header)

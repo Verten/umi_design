@@ -7,7 +7,12 @@ import Body from './components/body'
 
 function BasicLayout(props) {
   if (props.location.pathname === '/' || props.location.pathname === '/callback') {
-    return <div>{props.children}</div>
+    return (
+      <Fragment>
+        <Header />
+        <div>{props.children}</div>
+      </Fragment>
+    )
   }
   return (
     <Fragment>
