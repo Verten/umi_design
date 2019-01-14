@@ -1,5 +1,3 @@
-import windowHelper from './window'
-
 function IframeHandler(options) {
   this.url = options.url
   this.message = options.message
@@ -27,7 +25,7 @@ function IframeHandler(options) {
 
 IframeHandler.prototype.init = function() {
   let _this = this
-  let _window = windowHelper.getWindow()
+  let _window = window
 
   this.iframe = _window.document.createElement('iframe')
   this.iframe.style.display = 'none'
@@ -64,12 +62,16 @@ IframeHandler.prototype.init = function() {
 }
 
 IframeHandler.prototype.postMessage = function(messageObj) {
-  return () => {
+  const _this = this
+  return function() {
     const { message, targetUrl } = messageObj
     if (message) {
-      // setTimeout(() => {
-      this.iframe.contentWindow.postMessage(message, targetUrl)
-      // }, 3000)
+      setTimeout(function() {
+        if (_this.iframe.contentWindow) {
+          console.info('start post message with -> ', message)
+          _this.iframe.contentWindow.postMessage(message, targetUrl)
+        }
+      }, 5000)
     } else {
       console.info('No message should post.')
     }
@@ -78,7 +80,7 @@ IframeHandler.prototype.postMessage = function(messageObj) {
 
 IframeHandler.prototype.eventListener = function(event) {
   let eventData = { event: event, sourceObject: this.eventSourceObject }
-
+  console.info('RP iframe received -> ', eventData)
   if (!this.eventValidator.isValid(eventData)) {
     return
   }

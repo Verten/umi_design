@@ -101,7 +101,7 @@ WebAuth.prototype.parseHash = function(options, cb) {
     options = options || {}
   }
 
-  let _window = windowHelper.getWindow()
+  let _window = window
 
   let hashStr = options.hash === undefined ? _window.location.search : options.hash
   hashStr = hashStr.replace(/^\??\/?/, '')

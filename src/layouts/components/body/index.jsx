@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import withAuthorization from './withAuthorization'
 import Menu from '../menu'
 
-import styles from './index.less'
+import styles from './styles/index.less'
 
 export class Body extends Component {
   static propTypes = {
@@ -59,4 +59,4 @@ export class Body extends Component {
   }
 }
 
-export default Body
+export default withAuthorization(Body)

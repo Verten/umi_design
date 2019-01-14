@@ -89,7 +89,9 @@ function checkAuthorizeValidator(options) {
 
 function checkSessionManagementValidator(options) {
   return eventData => {
-    return eventData.event.data === 'error' || eventData.event.data === 'unchange' || eventData.event.data === 'change'
+    return (
+      eventData.event.data === 'error' || eventData.event.data === 'unchanged' || eventData.event.data === 'changed'
+    )
   }
 }
 
@@ -103,7 +105,7 @@ function checkAuthorizeCallback(options, obj, cb) {
       let parsedHash = eventData.event.data.response
       return obj.webAuth.validateAuthenticationResponse(options, parsedHash, cb)
     }
-    if (error.error === 'consent_required' && windowHelper.getWindow().location.hostname === 'localhost') {
+    if (error.error === 'consent_required' && window.location.hostname === 'localhost') {
       obj.warn.warning("Consent Required. Consent can't be skipped on localhost.")
     }
     obj.webAuth.transactionManager.clearTransaction(error.state)
@@ -120,8 +122,8 @@ function checkSessionManagementCallback(options, obj, cb) {
       // check data in event should be change, unchange, error
       const data = eventData.event.data
       console.info('RP session management received:', data)
-      if (data === 'change') {
-        // session state was change, auto call check session to refresh
+      if (data === 'changed') {
+        // session state was changed, auto call check session to refresh
         const encodeState = btoa(
           JSON.stringify({
             usePostMessage: true,
@@ -135,7 +137,7 @@ function checkSessionManagementCallback(options, obj, cb) {
           error_description: 'Login Required!',
         })
       } else {
-        // unchange
+        // unchanged
         cb(null, data)
       }
     }

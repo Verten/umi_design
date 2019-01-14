@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
-import styles from './index.css'
+import styles from './index.less'
 import Button from '../components/button'
 
 export class LandingPage extends Component {
@@ -16,14 +16,17 @@ export class LandingPage extends Component {
   }
 
   handleLogin(state) {
-    const { auth } = this.props
-    const encodeState = btoa(
-      JSON.stringify({
-        usePostMessage: false,
-        date: new Date(),
-        path: 'home',
-      }),
-    )
+    const { auth, location } = this.props
+    const to = location.query.to
+    const defaultState = {
+      usePostMessage: false,
+      date: new Date(),
+      path: 'home',
+    }
+    if (to) {
+      Object.assign(defaultState, { path: to })
+    }
+    const encodeState = btoa(JSON.stringify(defaultState))
     return () => {
       auth.login({ state: encodeState, nonce: auth.randomString() })
     }
@@ -32,13 +35,19 @@ export class LandingPage extends Component {
   render() {
     return (
       <div className={styles.normal}>
-        <ul className={styles.list}>
-          <li>
-            <Button icon="icon-avatar" onClick={this.handleLogin()}>
-              Login Button
+        <div className={`${styles.info}`}>
+          <h1>IAM RBAC</h1>
+          <p>
+            The IAM RBAC provides... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vulputate sapien
+            sed pulvinar aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vulputate sapien sed
+            pulvinar aliquam.
+          </p>
+          <div>
+            <Button primary={true} onClick={this.handleLogin()}>
+              Sign in
             </Button>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     )
   }

@@ -48,7 +48,7 @@ export class Callback extends Component {
   handleLogicWithState = message => {
     const { state } = message
     const { auth } = this.props
-    const targetOrigin = `${window.location.origin}`
+    const targetOrigin = `${window.parent.location.origin}`
     const mainWin = window.opener ? window.opener : window.parent
     let decodedState = ''
     if (state) {
@@ -61,9 +61,17 @@ export class Callback extends Component {
       if (decodedState !== '') {
         const { usePostMessage, path } = decodedState
         if (!usePostMessage) {
-          router.replace({
+          const redirectConfig = {
             pathname: path,
-          })
+          }
+          if (message.error) {
+            Object.assign(redirectConfig, {
+              query: {
+                ...message,
+              },
+            })
+          }
+          router.replace(redirectConfig)
         } else {
           mainWin.postMessage(auth.initPostAuthorizationResponse(message), targetOrigin)
         }
