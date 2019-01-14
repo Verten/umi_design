@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import Loading from '../../../components/loading'
-import Button from '../../../components/button'
+import Dialog from '../../../components/dialog'
 
 import { fetchUserInfo } from '../../../models/app'
 
@@ -80,9 +80,14 @@ function withAuthorization(WrappedComponent) {
       ) : isAuthorized ? (
         <WrappedComponent {...this.props} />
       ) : (
-        <Button icon="icon-avatar" onClick={this.handleLogin}>
-          Login Button
-        </Button>
+        <Dialog
+          visible={true}
+          title="Login Required"
+          onOk={this.handleLogin}
+          cancelButtonProps={{ disabled: true }}
+          okText={'Login'}>
+          <p>Please Login first.</p>
+        </Dialog>
       )
     }
   }
