@@ -23,6 +23,7 @@ function withAuthorization(WrappedComponent) {
     }
 
     componentDidMount = () => {
+      this._isMount = true
       const { auth } = this.props
       const defaultState = {
         usePostMessage: true,
@@ -33,20 +34,27 @@ function withAuthorization(WrappedComponent) {
       // todo: connect with session management
     }
 
+    componentWillUnmount = () => {
+      this._isMount = false
+    }
+
     handleAuthorization = (error, result) => {
-      if (error) {
-        this.setState({
-          isAuthorized: false,
-          isProcessing: false,
-        })
-      } else {
-        this.setState({
-          isAuthorized: true,
-          isProcessing: false,
-        })
-        // start API request to fetch user info and permission
-        this.props.actions.fetchUserInfo()
-        // todo: fetch user permissions
+      // avoid set state in unmounted component
+      if (this._isMount) {
+        if (error) {
+          this.setState({
+            isAuthorized: false,
+            isProcessing: false,
+          })
+        } else {
+          this.setState({
+            isAuthorized: true,
+            isProcessing: false,
+          })
+          // start API request to fetch user info and permission
+          this.props.actions.fetchUserInfo()
+          // todo: fetch user permissions
+        }
       }
     }
 

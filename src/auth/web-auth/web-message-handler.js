@@ -3,6 +3,7 @@ import objectHelper from '../helper/object'
 import windowHelper from '../helper/window'
 import random from '../helper/random'
 import Warn from '../helper/warn'
+import { debug } from '../helper/log'
 
 function runWebMessageFlow(targetUrl, options, callback, validatorCallback, message) {
   const handler = new IframeHandler({
@@ -121,7 +122,7 @@ function checkSessionManagementCallback(options, obj, cb) {
     } else {
       // check data in event should be change, unchange, error
       const data = eventData.event.data
-      console.info('RP session management received:', data)
+      debug('RP session management received:', data)
       if (data === 'changed') {
         // session state was changed, auto call check session to refresh
         const encodeState = btoa(

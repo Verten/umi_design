@@ -1,3 +1,5 @@
+import { debug } from '../helper/log'
+
 function IframeHandler(options) {
   this.url = options.url
   this.message = options.message
@@ -68,19 +70,19 @@ IframeHandler.prototype.postMessage = function(messageObj) {
     if (message) {
       setTimeout(function() {
         if (_this.iframe.contentWindow) {
-          console.info('start post message with -> ', message)
+          debug('start post message with -> ', message)
           _this.iframe.contentWindow.postMessage(message, targetUrl)
         }
       }, 5000)
     } else {
-      console.info('No message should post.')
+      debug('No message should post.')
     }
   }
 }
 
 IframeHandler.prototype.eventListener = function(event) {
   let eventData = { event: event, sourceObject: this.eventSourceObject }
-  console.info('RP iframe received -> ', eventData)
+  debug('RP iframe received -> ', eventData)
   if (!this.eventValidator.isValid(eventData)) {
     return
   }
