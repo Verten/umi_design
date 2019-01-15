@@ -41,19 +41,45 @@ export class Menu extends Component {
     getSelectedMenu: PropTypes.func,
   }
 
-  handleSelectedMenu = () => {
+  currentSelectedMenu = () => {
     const { menu = trees, location } = this.props
+    let { selectedMenu } = this.getMatchedMenu(menu, location)
+    return selectedMenu.selectedMenu
+  }
+
+  currentOpenedMenu = () => {
+    const { menu = trees, location } = this.props
+    let { selectedMenu } = this.getMatchedMenu(menu, location)
+    return selectedMenu.openedMenu
+  }
+
+  getMatchedMenu = (menu, location, parentMenu) => {
     let selectedMenu = ''
+    let openedMenu = ''
     menu.forEach(_menu => {
       if (_menu.path === location.pathname) {
         selectedMenu = _menu.name
+        if (parentMenu) {
+          openedMenu = parentMenu
+        }
+      } else {
+        if (_menu.tree && selectedMenu === '') {
+          selectedMenu = this.getMatchedMenu(_menu.tree, location, _menu.name)
+        }
       }
     })
-    return selectedMenu
+    return { selectedMenu, openedMenu }
   }
 
   render() {
-    return <Tree tree={trees} getSelectedTree={this.props.getSelectedMenu} selectedTree={this.handleSelectedMenu()} />
+    return (
+      <Tree
+        tree={trees}
+        getSelectedTree={this.props.getSelectedMenu}
+        opendTree={this.currentOpenedMenu()}
+        selectedTree={this.currentSelectedMenu()}
+      />
+    )
   }
 }
 
