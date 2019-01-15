@@ -1,12 +1,14 @@
 /////////////////////////////////////
 // Notifications
 /////////////////////////////////////
-@import (reference, multiple) "../../../assets/variables/global";
-@import (reference, multiple) "../../../assets/font/icon-names";
+@import (reference, multiple) '../../../assets/variables/global';
+@import (reference, multiple) '../../../assets/font/icon-names';
 
 .notification {
-  position: relative;
+  position: absolute;
   display: flex;
+  top: 48px;
+  right: 24px;
   flex-direction: column;
   z-index: 10;
   padding: @space-large;
@@ -15,7 +17,12 @@
   background-color: @notification-background;
   border: 1px solid @notification-border;
   box-shadow: 0 2px 16px 0 @notification-shadow-color;
-  transition: opacity 250ms ease-out; // on show
+  transition: right 0.5s ease-in-out;
+
+  &.full-width {
+    width: 100%;
+    right: 0;
+  }
 
   &:hover {
     border-color: @notification-hover;
@@ -31,12 +38,13 @@
   .top-row {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     .status {
       display: inline-block;
 
       &::before {
-        font-family: "Ericsson Icons" !important;
+        font-family: 'Ericsson Icons' !important;
         margin-right: @space-large;
         vertical-align: middle;
         font-size: 16px;
@@ -45,16 +53,18 @@
 
     .title {
       flex: 1;
-      width: 90%;
+    }
 
-      &::after {
-        content: @icon-cross;
-        font-family: "Ericsson Icons" !important;
-        font-size: 16px;
-        color: fade(@text, 50%);
-        position: absolute;
-        right: @space-large;
-        top: 16px;
+    .icon.close {
+      // position: absolute;
+      // padding: @space-large;
+      // right: 0;
+      font-family: 'Ericsson Icons' !important;
+      font-size: 16px;
+      color: fade(@text, 50%);
+
+      &:hover {
+        color: @notification-hover;
       }
     }
   }
@@ -63,7 +73,7 @@
     margin-top: @space-large;
     color: @notification-description;
     display: flex;
-    opacity: .8;
+    opacity: 0.8;
     font-weight: 300;
 
     .actions {
@@ -76,93 +86,23 @@
     }
   }
 
-  .timeout {
-    margin-top: @space-large;
-    display: flex;
-    opacity: .8;
-    font-weight: 300;
-    order: 100;
-  }
-
-  &.toast {
-    position: absolute;
-    bottom: 0;
+  &.live {
     right: 0;
-  }
-
-  &.hidden {
-    opacity: 0;
-  }
-
-  &.error {
-    color: @white;
-    background-color: @red;
-    border-color: @red;
-
-    &:hover {
-      border-color: @red;
-
-      .title::after {
-        color: @white;
-      }
-    }
-
-    .status::before {
-      content: @icon-triangle;
-    }
-
-    .title {
-      flex: 0 0 auto;
-      width: 81%;
-
-      &::after {
-        color: fade(@white, 50%);
-      }
-    }
-  }
-
-  &.success {
-    color: @white;
-    background-color: @blue;
-    border-color: @blue;
-
-    &:hover {
-      border-color: @blue;
-
-      .title::after {
-        color: @white;
-      }
-    }
-
-    .status::before {
-      content: @icon-check;
-    }
-
-    .title {
-      flex: 0 0 auto;
-      width: 81%;
-
-      &::after {
-        color: fade(@white, 50%);
-      }
-    }
   }
 
   .icon {
     // Makes the icons smaller without breaking alignment
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 
 @media @tablet {
   .notification {
-    position: relative;
-    top: 64px;
-    right: 16px !important;
+    top: 32px;
     width: 380px;
 
-    &.toast {
-      bottom: auto;
+    &.live {
+      right: 16px;
     }
   }
 }
