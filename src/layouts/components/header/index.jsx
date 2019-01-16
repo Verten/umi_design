@@ -37,7 +37,7 @@ export class Header extends Component {
       return (
         <div className={`${styles.item} ${styles.hover}`}>
           <i className={`${styles.icon} ${styles['icon-profile']}`} />
-          <a>{userInfo.user_info.display_name}</a>
+          <a>{`${userInfo.user_info.first_name}`}</a>
         </div>
       )
     }
