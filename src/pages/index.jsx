@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import styles from './index.less'
+import { multiLanguage } from '../utilities/helper'
 import Button from '../components/button'
 
 export class LandingPage extends Component {
@@ -44,7 +45,7 @@ export class LandingPage extends Component {
           </p>
           <div>
             <Button primary={true} onClick={this.handleLogin()}>
-              Sign in
+              {multiLanguage('SIGN_IN')}
             </Button>
           </div>
         </div>

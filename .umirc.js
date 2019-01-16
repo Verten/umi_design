@@ -18,10 +18,14 @@ export default {
           exclude: [],
         },
         hardSource: false,
+        locale: {
+          default: 'en-US',
+          baseNavigator: true,
+        },
       },
     ],
   ],
   cssLoaderOptions: {
-    localIdentName: '[local]'
-  }
+    localIdentName: '[local]',
+  },
 }
