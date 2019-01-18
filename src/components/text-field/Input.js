@@ -1,9 +1,19 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import styles from './styles/styles.less'
 import { uniqueId } from 'lodash'
 
 const KEYCODE_ENTER = 13
 export default class Input extends Component {
+  static propTypes = {
+    id: PropTypes.string,
+    icon: PropTypes.string,
+    inputType: PropTypes.string,
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
+    label: PropTypes.object,
+    onEnter: PropTypes.func,
+  }
   renderLabel(label, id) {
     if (label) {
       const { text, pos } = label

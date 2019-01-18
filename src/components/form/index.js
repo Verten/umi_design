@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class Form extends Component {
+  static propTypes = {
+    initialValues: PropTypes.object,
+    validators: PropTypes.array,
+    onSubmit: PropTypes.func,
+  }
   constructor(props) {
     super(props)
     const { initialValues = {} } = props

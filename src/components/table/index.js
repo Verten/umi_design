@@ -278,7 +278,10 @@ export default class Table extends Component {
     const searchResult = data.filter((record) => {
       return Object.keys(record).filter(key => key !== 'key').some((key => {
         const searchValue = record[key]
-        const searched = searchValue.toString && searchValue.toString().indexOf(searchKey) > -1
+        let searched = false
+        if (typeof searchValue === 'string' || typeof searchValue === 'number') {
+          searched = searchValue.toString().indexOf(searchKey) > -1
+        }
         return searched
       }))
     })

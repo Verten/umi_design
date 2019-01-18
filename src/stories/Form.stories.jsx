@@ -8,7 +8,7 @@ import Theme from '../components/theme'
 
 storiesOf('Form', module)
   .add('default', () => {
-    const initialValues = { email: '', password: '', age: '' }
+    // const initialValues = { email: '', password: '', age: '' }
     const validators = [
       { name: 'email',
         required: true,
