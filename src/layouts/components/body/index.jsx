@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import withAuthorization from './withAuthorization'
+import { multiLanguage } from '../../../utilities/helper'
 import Menu from '../menu'
 
 import styles from './styles/index.less'
@@ -40,7 +41,9 @@ export class Body extends Component {
               <div className={styles.item}>
                 <i className={`${styles['navigation-toggle']} ${this.state.slideOpen ? styles.closed : ''}`} />
               </div>
-              <div className={`${styles['menu-anchor']} ${this.state.slideOpen ? styles['open-menu'] : ''}`}>Menu</div>
+              <div className={`${styles['menu-anchor']} ${this.state.slideOpen ? styles['open-menu'] : ''}`}>
+                {multiLanguage('MENU')}
+              </div>
               <div className={`${styles.title} ${this.state.slideOpen ? styles['open-menu'] : ''}`}>
                 <span className={`${styles['title-name']}`}>{this.state.selectedMenu}</span>
               </div>

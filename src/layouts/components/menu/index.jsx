@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Tree from '../../../components/tree'
+import { multiLanguage } from '../../../utilities/helper'
 
 const trees = [
   {
-    name: 'Configure',
-    path: '',
-    tree: [{ name: 'Resources', path: '/resources' }, { name: 'Permissions', path: '/permissions' }],
-  },
-  {
-    name: 'Manage',
+    name: multiLanguage('CONFIGURE'),
     path: '',
     tree: [
-      { name: 'Roles', path: '/roles' },
-      { name: 'Organizations', path: '/organizations' },
-      { name: 'Users', path: '/users' },
+      { name: multiLanguage('RESOURCES'), path: '/resources' },
+      { name: multiLanguage('PERMISSIONS'), path: '/permissions' },
+    ],
+  },
+  {
+    name: multiLanguage('MANAGE'),
+    path: '',
+    tree: [
+      { name: multiLanguage('ROLES'), path: '/roles' },
+      { name: multiLanguage('ORGANIZATIONS'), path: '/organizations' },
+      { name: multiLanguage('USERS'), path: '/users' },
     ],
   },
   // {
@@ -57,7 +61,9 @@ export class Menu extends Component {
     let openedMenu = ''
     menu.forEach(_menu => {
       if (_menu.path === location.pathname) {
-        openedMenu = parendMenu
+        if (parendMenu) {
+          openedMenu = parendMenu
+        }
       } else {
         if (_menu.tree && openedMenu === '') {
           openedMenu = this.getMatchedOpenedMenu(_menu.tree, location, _menu.name)

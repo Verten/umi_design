@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { withRouter } from 'react-router'
+import { multiLanguage } from '../../../utilities/helper'
 import styles from './index.less'
 
 export class Header extends Component {
@@ -48,13 +49,13 @@ export class Header extends Component {
     if (userInfo && userInfo.user_info) {
       return (
         <div className={`${styles.item} ${styles.hover} settings-trigger`}>
-          <span onClick={this.handleLogout}>Sign out</span>
+          <span onClick={this.handleLogout}>{multiLanguage('SIGN_OUT')}</span>
         </div>
       )
     }
     return (
       <div className={`${styles.item} ${styles.hover} settings-trigger`}>
-        <span onClick={this.handleSignIn}>Sign in</span>
+        <span onClick={this.handleSignIn}>{multiLanguage('SIGN_IN')}</span>
       </div>
     )
   }
@@ -65,8 +66,8 @@ export class Header extends Component {
         <div className={styles['items-container']}>
           <div className={styles.item}>
             <i className="icon icon-econ" />
-            <span className={styles.product}>Account Manager</span>
-            <span className={styles.acronym}>Account Manager</span>
+            <span className={styles.product}>{multiLanguage('SYSTEM_TITLE')}</span>
+            <span className={styles.acronym}>{multiLanguage('SYSTEM_TITLE')}</span>
           </div>
         </div>
         <div className={styles['items-container']}>
